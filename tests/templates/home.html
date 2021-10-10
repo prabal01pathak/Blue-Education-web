@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+hello
+    {% for title in titles %}
+    <div class="tests-links"><a href="{% url 'jeetests:index' title.id %}">{{ title }}</a></div>
+    {% endfor %}
+{% endblock %}

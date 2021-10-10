@@ -1,0 +1,15 @@
+* {
+    margin:0px;
+    padding:0px;
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 100px;
+}
+iframe {
+    width: 50%;
+    height: 100px;
+    display: inline;
+}

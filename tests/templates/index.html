@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'index.css' %}"> 
+{% endblock %}
+
+{% block content %}
+{% if marks %}
+<table>
+  <caption>ANALYSIS</caption>
+  <th>
+    <tr>
+      <td>Subject</td>
+      <td>Marks</td>
+      <td>Right</td>
+    </tr>
+  </th>
+  <tbody>
+    {% if math_marks %}
+    <tr>
+      <td>Math</td>
+      <td>{{math_marks}}</td>
+      <td>{{math_right}}</td>
+    </tr>
+    {% endif %}
+    {% if chemistry_marks %}
+    <tr>
+      <td>Chemistry</td>
+      <td>{{chemistry_marks}}</td>
+      <td>{{chemistry_right}}</td>
+    </tr>
+    {% endif %}
+    {% if physics_marks %}
+    <tr>
+      <td>Physics</td>
+      <td>{{physics_marks}}</td>
+      <td>{{physics_right}}</td>
+    </tr>
+    {% endif %}
+    {% if bio_marks %}
+    <tr>
+      <td>Bio</td>
+      <td>{{bio_marks}}</td>
+      <td>{{bio_right}}</td>
+    <tr>
+    {% endif %}
+      <td>Total</td>
+      <td>{{marks}}</td>
+      <td>{{right}}</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
+
+<form ation="" method="post"> {% csrf_token %}
+    <!-- math section -->
+ {% if  title.exam_type == "Jee" %}
+    <h2>Math</h2>
+  {% for model in model_mh %}
+
+    <div  class="description">
+      <p>{{forloop.counter}}. {{model.description|safe}}</p>
+    </div>
+
+    {% if model.type == 'write' %}
+      <input type='text' name="option_mh{{forloop.counter}}" >
+    {% else %}
+    <div class="options_mh">
+      <input type="radio" class="option1" name="option_mh{{forloop.counter}}" value="A">
+      <label for="option1">a). {{model.option1|safe}}</label>
+
+      <input type="radio" class="option2" name="option_mh{{forloop.counter}}" value="B">
+      <label for="option2">b). {{model.option2|safe}}</label>
+
+      <input type="radio" class="option3" name="option_mh{{forloop.counter}}" value="C">
+      <label for="option3">c). {{model.option3|safe}}</label>
+
+      <input type="radio" class="option4" name="option_mh{{forloop.counter}}" value="D">
+      <label for="option4">d). {{model.option4|safe}}</label><br>
+    
+    </div>
+    {% endif %}
+  <!-- show options base on need -->
+    {% if not title.is_live  %}
+      {% for choice in choices_mh %}
+
+
+        {% if forloop.counter == forloop.parentloop.counter %}
+
+          {%if model.type == 'write' %}
+
+              {% if choice|lower == model.option1|lower %}
+              <p>✅</p>
+              {% elif choice == None or choice == "" %}
+                <p> Not Attempted</p>
+              {% else %}
+                  <p> ❎ </p>
+              {% endif %}
+
+          {% else %}
+            {% if choice == model.answer %}
+                <p>✅</p>
+
+            {% elif choice == None or choice == "" %}
+                <p>Not attempted</p>
+
+            {% else %}
+                <p> ❎ </p>
+            {% endif %}
+
+          {% endif %}
+
+            <p>Chosen: {{choice}}</p>
+
+            {% if model.type == 'write' %}
+              <p>Answer:  {{model.option1|lower}}</p>
+            {% else %}
+              <p>Answer:  {{model.answer|lower}}</p>
+            {% endif %}
+
+
+        {% endif %}
+
+      {% endfor %}
+      {% if model.explanation != 'None' %}
+          <p>Explanation:  {{model.explanation}} </p>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  <!-- end of check section -->
+  
+  <!-- start of chemistry section -->
+    <h2>Chemistry</h2>
+  {% for model in model_ch %}
+
+    <div  class="description">
+      <p>{{forloop.counter}}. {{model.description|safe}}</p>
+    </div>
+
+    <!-- check question type -->
+    {% if model.type == 'write' %}
+      <input type='text' name="option_ch{{forloop.counter}}" >
+    {% else %}
+    <div class="options_mh">
+      <input type="radio" class="option1" name="option_ch{{forloop.counter}}" value="A">
+      <label for="option1">a). {{model.option1|safe}}</label>
+
+      <input type="radio" class="option2" name="option_ch{{forloop.counter}}" value="B">
+      <label for="option2">b). {{model.option2|safe}}</label>
+
+      <input type="radio" class="option3" name="option_ch{{forloop.counter}}" value="C">
+      <label for="option3">c). {{model.option3|safe}}</label>
+
+      <input type="radio" class="option4" name="option_ch{{forloop.counter}}" value="D">
+      <label for="option4">d). {{model.option4|safe}}</label><br>
+    
+    </div>
+    <!--check chemistry answer validation and show it in user page -->
+    {% if not title.is_live  %}
+      {% for choice in choices_ch %}
+
+
+        {% if forloop.counter == forloop.parentloop.counter %}
+
+          {%if model.type == 'write' %}
+
+              {% if choice|lower == model.option1|lower %}
+              <p>✅</p>
+              {% elif choice == None or choice == "" %}
+                <p> Not Attempted</p>
+              {% else %}
+                  <p> ❎ </p>
+              {% endif %}
+
+          {% else %}
+            {% if choice == model.answer %}
+                <p>✅</p>
+
+            {% elif choice == None or choice == "" %}
+                <p>Not attempted</p>
+
+            {% else %}
+                <p> ❎ </p>
+            {% endif %}
+
+          {% endif %}
+
+            <p>Chosen: {{choice}}</p>
+
+            {% if model.type == 'write' %}
+              <p>Answer:  {{model.option1|lower}}</p>
+            {% else %}
+              <p>Answer:  {{model.answer|lower}}</p>
+            {% endif %}
+        {% endif %}
+
+    {% endfor %}
+
+      {% if model.explanation != 'None' %}
+          <p>Explanation:  {{model.explanation}} </p>
+
+      {% endif %}
+      {% endif %}
+    {% endif %}
+    <!-- after validation things -->
+  {% endfor %}
+  
+    <!-- physics section -->
+    <h2>Physics</h2>
+  {% for model in model_ph %}
+
+    <div  class="description">
+      <p>{{forloop.counter}}. {{model.description|safe}}</p>
+    </div>
+
+  <!-- check question type -->
+    {% if model.type == 'write' %}
+     <div class="write"><input type='text' name="option_ph{{forloop.counter}}" ></div>
+    {% else %}
+    <div class="options_mh">
+      <input type="radio" class="option1" name="option_ph{{forloop.counter}}" value="A">
+      <label for="option1">a). {{model.option1|safe}}</label>
+
+      <input type="radio" class="option2" name="option_ph{{forloop.counter}}" value="B">
+      <label for="option2">b). {{model.option2|safe}}</label>
+
+      <input type="radio" class="option3" name="option_ph{{forloop.counter}}" value="C">
+      <label for="option3">c). {{model.option3|safe}}</label>
+
+      <input type="radio" class="option4" name="option_ph{{forloop.counter}}" value="D">
+      <label for="option4">d). {{model.option4|safe}}</label><br>
+    
+    </div>
+  {% endif %}
+  
+  <!-- validation of inputs -->
+    {% if not title.is_live  %}
+      {% for choice in choices_ph %}
+
+        {% if forloop.counter == forloop.parentloop.counter %}
+        <!-- check input type -->
+          {%if model.type == 'write' %}
+              {% if choice|lower == model.option1|lower %}
+              <p>✅</p>
+              {% elif choice == None or choice == "" %}
+                <p> Not Attempted</p>
+              {% else %}
+                  <p> ❎ </p>
+              {% endif %}
+          {% else %}
+            {% if choice == model.answer %}
+                <p>✅</p>
+            {% elif choice == None or choice == "" %}
+                <p>Not attempted</p>
+            {% else %}
+                <p> ❎ </p>
+            {% endif %}
+          {% endif %}
+            <p>Chosen: {{choice}}</p>
+            <!--check for answer input type -->
+            {% if model.type == 'write' %}
+              <p>Answer:  {{model.option1|lower}}</p>
+            {% else %}
+              <p>Answer:  {{model.answer|lower}}</p>
+            {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <!-- put Explanation if exist -->
+
+      {% if model.explanation != 'None' %}
+          <p>Explanation:  {{model.explanation}} </p>
+      {% endif %}
+    {% endif %}
+    <!-- end of validation -->
+
+  {% endfor %}
+    <!-- end of subject section -->
+
+    <input type="submit" value="Submit">
+  </form>
+{% endif %}
+
+{% if not title.is_live %}
+<p> Attempts : {{student.attempts }}</p>
+{% endif %}
+
+
+    <!---show marks after submiting the form-->
+
+    <!-- end of marks section -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(':radio').mousedown(function(e){
+var $self = $(this);
+if( $self.is(':checked') ){
+var uncheck = function(){
+  setTimeout(function(){$self.removeAttr('checked');},0);
+};
+var unbind = function(){
+  $self.unbind('mouseup',up);
+};
+var up = function(){
+  uncheck();
+  unbind();
+};
+$self.bind('mouseup',up);
+$self.one('mouseout', unbind);
+}
+});
+</script>
+
+{% endblock %}
