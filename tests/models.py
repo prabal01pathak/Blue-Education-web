@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -11,13 +12,20 @@ types = (('single', 'single'), ('write', 'write'),
 
 answer_choice = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'))
 exam_choice = (('Jee','Jee'),('Neet','Neet'))
+marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
+minus_marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
 
 
 class Title(models.Model):
     Queistion_Paper_Title = models.CharField(max_length=200)
     exam_type = models.CharField(max_length=100,blank=True,choices=exam_choice,default='Jee')
+    marking_scheme = models.CharField(max_length=200,blank=True,choices=marking_choice,default='0',help_text="assigned marks for every questions") 
+    minus_marking_scheme = models.CharField(max_length=200,blank=True,choices=minus_marking_choice,default='0')
+    scheduled_time = models.DateTimeField(blank=True,null=True,default=timezone.now)  
     hidden = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
+    end_hours = models.FloatField(default=1,blank=False)
+    description = models.TextField(blank=True,default='')
 
     def __str__(self):
         return self.Queistion_Paper_Title+" "+self.exam_type
@@ -44,6 +52,8 @@ class Questions(models.Model):
 
     def __str__(self):
         return "Q.No: "+str(self.Q_No) +" "+  self.paper_title.Queistion_Paper_Title + " "  + self.description
+    def name(self):
+        return type(self).__name__
 
 class Math(Questions):
     pass
@@ -54,17 +64,20 @@ class Chemistry(Questions):
 class Physics(Questions):
     pass
 
+class Biology(Questions):
+    pass
+class Agriculture(Questions):
+    pass
 class StudentData(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     paper = models.ForeignKey(Title, on_delete=models.CASCADE)
     attempts = models.IntegerField(default=0, blank=True)
-    marks = models.CharField(max_length=200, default=0, blank=True)
-    math_score = models.IntegerField(blank=True,default=0)
-    chemistry_score = models.IntegerField(blank=True,default=0)
-    physics_score = models.IntegerField(blank=True,default=0)
-    want_try_again=models.BooleanField(default=False)
-    submitted_at = models.DateTimeField(default=0)  
+    marks = models.IntegerField(default=0,blank=True)
+    rank = models.IntegerField(default=0,blank=True)
+    exam_data = models.TextField(default='None',blank=True)
+    want_try_again = models.BooleanField(default=False)
+    submitted_at = models.DateTimeField(default=0,blank=True)  
     
 
     def __str__(self):
-        return "User: "+self.user.username + ", Paper: "+self.paper.Queistion_Paper_Title +", Marks: "+self.marks
+        return "User: "+self.user.username + ", Paper: "+self.paper.Queistion_Paper_Title 

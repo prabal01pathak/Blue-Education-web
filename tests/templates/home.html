@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} {{ title }} {% endblock %}
-
+{% block style %} <link  rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
 {% block content %}
-hello
+<section class="links-section">
     {% for title in titles %}
-    <div class="tests-links"><a href="{% url 'jeetests:index' title.id %}">{{ title }}</a></div>
+    <div class="home-links">
+     {% if title.is_live %}
+        <div class="live-logo">
+            live
+        </div>
+        <div class="time">
+            <div>Schedule Time: {{title.scheduled_time}}</div>
+            <div>End Time:  {{title.end_hours}}</div>
+        </div>
+     {% endif %}
+        <div class="tests-links">
+            {{ title.Queistion_Paper_Title }}
+        </div>
+        <div class="test-description">
+            {{title.description}}
+        </div>
+        <a class="give-test" href="{% url 'jeetests:index' title.id %}">
+        <button>Start</button>
+        </a>
+    </div>
     {% endfor %}
+</section>
 {% endblock %}
