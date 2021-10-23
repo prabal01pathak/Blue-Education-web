@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.2"
+requests = "*"
+dj-database-url = "*"
+psycopg2 = "*"
+gunicorn = "*"
+whitenoise = "*"
+pipfile = "*"
+tzlocal = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

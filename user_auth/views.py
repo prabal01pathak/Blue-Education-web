@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.apps import apps
 from .forms import UserCreate,PasswordChangeForm,UserProfile
 from django.shortcuts import render, redirect,reverse
-from .models import UserExtraData
+from .models import *
 from django.contrib.auth.decorators import login_required
 import math
 import random
@@ -29,7 +29,6 @@ def profile(request):
     form = UserProfile({'first_name':user.first_name, 'last_name':user.last_name, 'username':user.username, 'Email':user.email,'mobile_no':user_data.mobile_number}) 
     if request.method=="POST":
         form = UserProfile(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
@@ -39,7 +38,6 @@ def profile(request):
             user_data.gender = form.cleaned_data.get("gender")
             user.save()
             user_data.save()
-            print('done')
             return redirect(request.path)
     return render(request, 'registration/profile.html', {'form': form, 'user_data': user_data})
 
@@ -96,15 +94,12 @@ def create_user(request):
             last_name = form.cleaned_data.get('last_name')
             user = User.objects.get(username=username)
             UserExtraData.objects.create(user=user, mobile_number=mobile_no, accept_terms=accept_terms)
-            print(username, raw_password, email, mobile_no, first_name, last_name)
             return redirect('/')
         return render(request, 'registration/register.html', {'form': form})
     return render(request, 'registration/register.html', {'form': form})
 
 def login_user(request):
-    print(dir(request))
     if request.user.is_authenticated:
-        print(request.path)
         return redirect('/')
     form = AuthenticationForm()
     if request.method == 'POST':
@@ -114,12 +109,9 @@ def login_user(request):
         user = authenticate(username=username, password=raw_password)
         if user is not None:
             login(request, user)
-            print(request.path)
             try:
-                print(request.path)
                 path = request.get_full_path_info()
                 next_path = path.split('=')[1]
-                print(next_path)
             except:
                 next_path = '/'
             return redirect(next_path)
@@ -138,7 +130,6 @@ def password_reset(request):
 def generate_otp():
     strings = string.ascii_letters + string.digits
     otp = ''.join(random.choice(strings) for i in range(8))
-    print(otp)
     return otp 
 @login_required(login_url="user_auth:login")
 def dashboard(request):
@@ -150,7 +141,6 @@ def dashboard(request):
         }
     else: 
         context = {}
-    print(data)
     return render(request,'registration/dashboard.html',context)
 
 
