@@ -1,0 +1,17 @@
+.login-link{
+    font-size: 1.01em;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 1em;
+    align-self: center;
+    }
+
+.login-link a{
+   color: #006699; 
+   margin-left: 10px;
+   border-bottom: 1px solid #006699;
+}
+   
+body {
+    background: rgb(186, 186, 245);
+}
