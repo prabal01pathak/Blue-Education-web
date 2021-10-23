@@ -449,7 +449,7 @@ input[type=radio]:checked + label {
         height: auto;
     } 
 }
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 500px) {
     
     .instructions {
         margin-left: 0px;

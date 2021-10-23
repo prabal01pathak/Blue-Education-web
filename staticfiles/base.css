@@ -213,7 +213,7 @@ footer a {
     
     
 }
-@media screen and (max-width:340px) {
+@media screen and (max-width:500px) {
     body {
         font-size: 0.9em;
 
