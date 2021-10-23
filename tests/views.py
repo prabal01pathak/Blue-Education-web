@@ -1,11 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Title, StudentData, Math, Chemistry, Physics,Biology
+from .models import Title, StudentData, Math, Chemistry, Physics,Biology,Agriculture
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-# , UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login
-from .forms import TestForm
+from .forms import TestForm,FormFilter
 from django.utils import timezone
 import json
 from django.apps import apps
@@ -22,7 +22,6 @@ def get_time():
     return html
 
 
-counter = 0
 
 
 def check_answers(choice, model, marking, minus_marking):
@@ -36,12 +35,18 @@ def check_answers(choice, model, marking, minus_marking):
 
     # manipulate the marks based on answer given by student
     if choice != None and choice.lower() == answer.lower():
-        mark += marking
+        if model.marking != 0:
+            mark = model.marking
+        else:
+            mark += marking
         right += 1
     elif choice == None or choice == "":
         mark += 0
     else:
-        mark -= minus_marking
+        if model.minus_marking != 0:
+            mark -= model.minus_marking
+        else:
+            mark -= minus_marking
     return mark, right
 
 
@@ -128,14 +133,23 @@ def index(request, title_id):
     # select first if multiple titles
     title = title[0]
 
+    # paper time details 
+    endtime = title.end_time 
+    server_end = title.end_time+timezone.timedelta(minutes=1)
+    time_now = timezone.now()
+
+    if time > server_end and title.is_live:
+        context = {
+            'title': 'Exam End',
+            'data': '<h2>Exam Ended</h2>'
+        }
+        return render(request,'result.html',context)
+
 
     # get data of every subject from database
     models = {}
     models_list = {}
 
-    # paper time details 
-    end_hour = float(title.end_hours)
-    endtime = title.scheduled_time + timezone.timedelta(hours=end_hour)
 
     #Append every new model subjects in subjects list.
     subjects = ['Math', 'Physics', 'Chemistry', 'Biology', 'Agriculture']
@@ -168,22 +182,34 @@ def index(request, title_id):
         'subjects_name': subjects_name,
     }
 
+    total_remaining_time = (endtime - title.scheduled_time).seconds
+    remaining_minutes = int(total_remaining_time/60)
     context = {
         'title': title,
         'models_list': models_list,
-        "total_time": end_hour,
         "end_time": endtime,
         "subject_detail":subject_detail,
         "nowTime": time,
+        'remaining_time': remaining_minutes,
+        'total_time':remaining_minutes,
     }
 
 
-
+    if title.is_live:
+        time_delay = ((time_now - title.scheduled_time).seconds)/60
+        total_remaining_minutes = int(remaining_minutes - time_delay)
+        context['remaining_time']=total_remaining_minutes
     #time of exam and submission
 
     if request.method == "POST":
         #get submitted time.
         time = timezone.now()
+        if time >server_end and title.is_live:
+            context = {
+                'title': 'Exam End',
+                'data': '<h2>Exam Ended</h2>'
+            }
+            return render(request,'result.html',context)
         try:
             # get database if exist and set marks and attempts
             student = StudentData.objects.get(user=request.user, paper=title)
@@ -193,9 +219,12 @@ def index(request, title_id):
                 user=request.user, paper=title,submitted_at=time) 
 
         if student.attempts >= 1 and title.is_live:
-            return HttpResponse("you have already submitted")
-        if time >endtime and title.is_live:
-            return HttpResponse("Exam ended")
+            title = 'resubmission'
+            context = {
+                'title':title,
+                'data':"<h2>You have already submitted</h2>"
+            }
+            return render(request,'result.html',context)
         # get student total posted data
         exam_data = get_posted_datas(
             request, models_list, title.marking_scheme, title.minus_marking_scheme)
@@ -210,7 +239,6 @@ def index(request, title_id):
         student.marks = total_marks
         student.save()
         rank = calculate_rank(title,request.user)
-        print("rank: ",rank)
         # change data to show in result page.
         for choices in exam_data:
             context[choices] = exam_data[choices]
@@ -226,17 +254,36 @@ def index(request, title_id):
 
 # home view for user
 #
-title = Title.objects.get(id=2)
+
+'''
+title = Title.objects.get(id=1)
 for i in range(0,200):
-    break
-    Chemistry.objects.create(paper_title=title,description="sldfjsldjfsldjfsdjfsdfjsldjfsdjfdsf" )
+    Agriculture.objects.create(paper_title=title,description="sldfjsldjfsldjfsdjfsdfjsldjfsdjfdsf" )
     print(i)
 
+    '''
 
 def home(requests):
-    titles = Title.objects.filter(hidden=False)
-    print(timezone.now())
+    titles = Title.objects.filter(is_live=True,hidden=False)
+    now_time = timezone.now()
+    for title in titles:
+        end_time = title.end_time
+        remove_live = title.remove_live_minutes
+        remove_live_time = end_time + timezone.timedelta(minutes=remove_live)
+        if now_time > remove_live_time:
+            title.is_live = False
+            title.save()
+    total_title = Title.objects.filter(hidden=False)
+    form = FormFilter()
     context = {
-        'titles': titles,
+        'titles': total_title,
+        'form': form,
     }
+    if requests.method=="POST":
+        form = FormFilter(requests.POST)
+        filter_type = requests.POST['exam_type']
+        total_title = Title.objects.filter(exam_type=filter_type)
+        context['titles'] = total_title
+        context['form'] = form
+        return render(requests,'home.html',context)
     return render(requests, 'home.html', context)

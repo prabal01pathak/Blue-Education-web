@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{user}} Dashboard {% endblock %}
+{% block style %} 
+    <link rel='stylesheet' href="{% static 'table.css' %}">
+    <link rel='stylesheet' href="{% static 'dashboard.css' %}">
+{% endblock %}
+{% block content %}
+{% if data %}
+<div class="main-dashboard">
+    <div class="dash-user">
+        {{user}} Exam history
+    </div>
+    <table class="dashboard">
+        <caption><div class="caption">{{item.paper.exam_type}}</div></caption>
+        <thead>
+            <tr>
+                <td>Paper Name</td>
+                <td>Rank</td>
+                <td>Marks</td>
+                <td>Total Attempts</td>
+                <td>Last Submitted At </td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td><a href="{% url "user_auth:view-paper" item.paper_id %}" style="color: blue;">{{item.paper}}</a></td>
+                <td>{{item.rank}}</td>
+                <td>{{item.marks}}</td>
+                <td>{{item.attempts}}</td>
+                <td>{{item.submitted_at}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div> Nothing here</div>
+{% endif %}
+{% endblock %}

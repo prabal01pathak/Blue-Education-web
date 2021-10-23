@@ -11,13 +11,15 @@
 
 {% if not total_marks %}
 
-  <div class="end-hours" hidden>{{title.end_hours}}</div>
+  {% comment %} enter time delay {% endcomment %}
+  <div class="student-hours" hidden>{{remaining_time}}</div>
+
   <div id="clock">Remaining Time: <span class="clock"></span></div>
   <div class="instructions" id="paperInstruction">
 
     <div class="instructions_content">
       <div class="paper_name"><h3> About Question Paper</h3></div>
-      <div class="paper_name"> <h3>{{title.Queistion_Paper_Title|upper}}</h3></div>
+      <div class="paper_name"> <h3>{{title.Question_Paper_Title|upper}}</h3></div>
 
 
 
@@ -25,7 +27,7 @@
       {% if title.is_live %}
         <div class='start_exam'>Start Time : {{title.scheduled_time}}</div> 
       {% endif %}
-        <div class="exam_time">Exam End Time: {{total_time}} hours</div>
+        <div class="exam_time">Exam End Time: {{total_time}} minutes</div>
       </div>
 
       <div class="instruct_lines">

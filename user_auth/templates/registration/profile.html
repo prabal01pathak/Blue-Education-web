@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{user}} Profile {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="user_details">
+<div class="error">{{form.error}}</div>
+<form action="" method="post">{% csrf_token %}
+    <table class='profile_data'>
+        <caption><div class="caption">Profile Details</div></caption>
+        {% for f in form %}
+            {% if f.label == 'Password' or f.label == 'Confirm password' or f.label == 'Accept terms'%}
+            {% else %}
+            <tr class={{f.label}}>
+                {% if f.errors %}
+                    <tr>
+                        <td colspan='2'>{{f.errors}}</td>
+                    </tr>
+                {% endif %}
+                <td><lable>{{f.label}}</lable></td>
+                <td>{{f}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    
+        <tr class="submit_button">
+            <td colspan="2"><input type="submit" value="Save"></td>
+        </tr>
+    </table>
+</form>
+</div>
+{% endif %}
+{% endblock %}
+    

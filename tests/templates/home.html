@@ -3,6 +3,15 @@
 {% block title %} {{ title }} {% endblock %}
 {% block style %} <link  rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
 {% block content %}
+<form method="post">{% csrf_token %}
+    <div class="select-type">
+        {{form}}
+    </div>
+    <div class="filter-button">
+        <input type='submit' value="Filter" hidden>
+    </div>
+</form>
+
 <section class="links-section">
     {% for title in titles %}
     <div class="home-links">
@@ -12,11 +21,11 @@
         </div>
         <div class="time">
             <div>Schedule Time: {{title.scheduled_time}}</div>
-            <div>End Time:  {{title.end_hours}}</div>
+            <div>End Time:  {{title.end_time}}</div>
         </div>
      {% endif %}
         <div class="tests-links">
-            {{ title.Queistion_Paper_Title }}
+            {{ title.Question_Paper_Title }}
         </div>
         <div class="test-description">
             {{title.description}}
@@ -27,4 +36,6 @@
     </div>
     {% endfor %}
 </section>
+<script src="{% static 'home.js' %}">
+</script>
 {% endblock %}

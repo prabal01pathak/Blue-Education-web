@@ -47,8 +47,6 @@
                                 <li><a href="#">ho</a></li>
                             </ul>
                         </div>
-                    <li><a href="{% url 'jeetests:home' %}">Home</a></li>
-                    <li><a href="{% url 'jeetests:home' %}">Home</a></li>
                     </div>
                 </ul>
             </div>
@@ -56,13 +54,12 @@
                 <ul>
                     <div class="ul-links">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'user_auth:logout' %}">Logout</a></li>
-                    <li><a href="{% url 'user_auth:logout' %}">Logout</a></li>
-                    <li><a href="{% url 'user_auth:logout' %}">Logout</a></li>
+                    <li><a href="{% url 'user_auth:dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'user_auth:profile' %}">Settings</a></li>
                     <li><a href="{% url 'user_auth:logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'user_auth:login' %}">Login</a></li>
-                    <li><a href="{% url 'user_auth:sign-up' %}">Sign Up</a></li>
+                    <li><a href="{% url 'user_auth:signup' %}">Sign Up</a></li>
                 {% endif %}
                 </div>
                 </ul>
@@ -77,7 +74,7 @@
                 <a href="{% url 'user_auth:logout' %}">Logout</a>
             {% else %}
                 <a href="{% url 'user_auth:login' %}">Login</a>
-                <a href="{% url 'user_auth:sign-up' %}">Sign Up</a>
+                <a href="{% url 'user_auth:signup' %}">Sign Up</a>
             {% endif %}
         </div>
         <div class="footer-copyright">

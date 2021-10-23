@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Register User{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'registration.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+    <table class="form">
+        <cpation><div class="caption"> Registration Form</div></caption>
+        {% if error %}
+            <tr>
+                <td colspan="2">{{error}}</td>
+            </tr>
+        {% endif %}
+
+        {% for f in form %}
+        {% if f.errors %}
+            <tr class="errors">
+                <td colspan="2">{{f.errors}}</td>
+            </tr>
+        {% endif %}
+        {% if f.label == "Accept terms" %}
+            <tr class={{f.label}}>
+                <td colspan="2"><span class="checkbox">{{f}}</span> Accept terms & Conditions.  </td>
+            </tr>
+            <tr class="terms">
+                <td colspan="2"><a href="http://www.google.com" style="color: blue;border-bottom: 1px solid;">Terms and conditions</td>
+            </tr>
+
+        {% else %}
+        <tr class={{f.label}}>
+            <td><lable>{{f.label}}</label></td>
+            <td>{{f}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        <tr class='submit'>
+            <td colspan="2"><input type="submit" value="Register"></td>
+        </tr>
+    </table>
+</form>
+<div class="login-link">
+    Already have an account? 
+    <a href="{% url 'user_auth:login' %}">Login</a>
+</div>
+{% endblock %}

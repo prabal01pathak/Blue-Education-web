@@ -1,5 +1,7 @@
 from django.forms import ModelForm
 from django import forms
+from .models import Title
+from .models import exam_choice
 
 
 class TestForm(forms.Form):
@@ -27,3 +29,9 @@ class TestForm(forms.Form):
         label='D. ',
         required=True,
     )
+
+class FormFilter(forms.Form):
+    exam_type = forms.ChoiceField(label="",choices=exam_choice)
+    class Meta:
+        model = Title
+        fields = ['exam_type']

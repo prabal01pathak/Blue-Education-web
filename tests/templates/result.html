@@ -1,27 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Result{% endblock %}
+{% block title %}{{title}}{% endblock %}
+{% block style %}
+<link rel='stylesheet' herf="{% static 'home.css' %}">
+{% endblock %}
 
 {% block content %}
-<p> Your marks are : {{marks}} </p>
-<p>  Answers are </p>
-
-{% for answers in model %}
-    {% if answers.subject == 'Math' and answers.Q_No == '1' %}
-        <h2>{{answers.subject}}</h2>
-    {% elif answers.subject == 'Chemistry' and answers.Q_No == '1' %}
-        <h2>{{answers.subject}}</h2>
-    {% elif answers.subject == 'Physics' and answers.Q_No == '1' %}
-        <h2>{{answers.subject}}</h2>
-    {% endif %}
-    {% if answers.type == 'write' %}
-        {{forloop.counter}} - {{answers.option1}}
-    {% else %}
-        {{forloop.counter}}- {{answers.answer}} 
-    {% endif %}
-{% endfor %}
-
-
-<p> Your Answers are </p>
+<div>
+{{data|safe}}
+</div>
 <p> {{student.answers|safe}} </p>
 {% endblock %}
