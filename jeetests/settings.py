@@ -128,7 +128,7 @@ SECURE_HSTS_PRELOAD = True
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = tzlocal.get_localzone().zone
+TIME_ZONE = "Asia/Calcutta"
 
 USE_I18N = True
 
