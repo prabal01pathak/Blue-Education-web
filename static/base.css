@@ -213,12 +213,13 @@ footer a {
     
     
 }
+/*
 @media screen and (max-width:500px) {
     body {
         font-size: 0.9em;
 
     }
-}
+}*/
 
 .nav-bar-active {
     outline: 2px solid rgb(75, 25, 25);
