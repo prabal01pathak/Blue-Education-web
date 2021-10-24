@@ -100,4 +100,4 @@ class StudentData(models.Model):
     
 
     def __str__(self):
-        return "User: "+self.user.username + ", Paper: "+self.paper.Queistion_Paper_Title 
+        return "User: "+self.user.username + ", Paper: "+self.paper.Question_Paper_Title 
