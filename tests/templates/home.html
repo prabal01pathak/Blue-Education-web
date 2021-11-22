@@ -4,6 +4,9 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
 {% block content %}
+<div class="card text-white">
+    <img src="{% static '1photos.jpg' %}" class="card-img"  alt="home page image">
+</div>
 <form method="post">{% csrf_token %}
   <div class="select-type">
     {{form}}

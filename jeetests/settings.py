@@ -229,7 +229,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "toolbar": "fullscreen paste pastetext |undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
-    "fullscreen  preview save print | insertfile image media pageembed template link anchor template codesample imageupload imagetools| "
+    "fullscreen  previe save print | insertfile image media pageembed template link anchor template codesample imageupload imagetools| "
     "a11ycheck ltr rtl | showcomments addcomment code toc| tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry |  editimage ",
     "custom_undo_redo_levels": 10,
     'paste_data_image': True,
@@ -237,7 +237,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'powerpaste_clean_filtered_inline_elements':True,
     'imagetools_toolbar': "",
     'external_plugins': {
-    'powerpaste': 'http://www.server.com/application/external_plugins/powerpaste/plugin.js'
+    'powerpaste': 'http://www.server.com/application/external_plugins/powerpaste/plugin.js',
+    'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js'
   },
     'paste_postprocess': """function(editor, fragment) {
     // Fragment is a DocumentFragment node containing the DOM structure of the pasted content,
