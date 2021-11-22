@@ -24,12 +24,10 @@
           {% endif %}
           <div class="card-img-overlay">
             {% if title.is_live %}
-            <div class="live-logo">
-              live
-            </div>
             <div class="card-header" style="background: lightblue;font-weight: bold;">
-              <div>Schedule Time: {{title.scheduled_time}}</div>
-              <div>End Time: {{title.end_time}}</div>
+                <div class="live-logo">live</div>
+                <div>Schedule Time: {{title.scheduled_time}}</div>
+                <div>End Time: {{title.end_time}}</div>
             </div>
             {% endif %}
           </div>
