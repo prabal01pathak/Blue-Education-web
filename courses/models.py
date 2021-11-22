@@ -4,5 +4,7 @@ from tests.models import exam_choice
 
 # Create your models here.
 
+
 class CreateSubjects(models.Model):
+    pass
 

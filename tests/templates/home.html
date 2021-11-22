@@ -38,7 +38,7 @@
             {{ title.Question_Paper_Title|title }}
           </div>
           <div class="card-body">
-            {{title.description}}
+            {{title.description|safe}}
           </div>
           <a class="btn btn-primary card-link design-link" style="position: relative;width: 4rem;align-self:center;"
             href="{% url 'jeetests:index' title.id %}">
