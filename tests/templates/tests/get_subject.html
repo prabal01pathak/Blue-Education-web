@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add questions
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'tests/css/show_assign.css' %}">
+{% endblock %}
+{% block content %}
+<div class="reach-link"><a href="{% url 'jeetests:show-title' %}">Show Title</a>> <a
+        href="{% url 'jeetests:get-subject' title.id %}">{{title|title}}</a></div>
+<h3>Title: {{title|title}}</h3>
+<div class="list-of-titles">
+    <div class="subject_list">
+        <ul>
+            {% for subject in subject_list %}
+            <li><a href="{% url 'jeetests:show-question' subject title.id %}">{{subject}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

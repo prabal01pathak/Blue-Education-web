@@ -144,6 +144,7 @@ def dashboard(request):
     return render(request,'registration/dashboard.html',context)
 
 
+@login_required(login_url="user_auth:login")
 def view_paper(request,title_id):
     user = request.user 
     paper = Title.objects.filter(id=title_id)
@@ -163,7 +164,7 @@ def view_paper(request,title_id):
             total_rights += exam_data[keys]['rights']
 
         for subject in subject_list:
-            model = get_object(title, subject)
+            model,model_name = get_object(title, subject)
             if model != None and len(model) > 0:
                 models_list[f"model_{subject}"] = {
                     'model_name': model,

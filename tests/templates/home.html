@@ -1,40 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %} {{ title }} {% endblock %}
-{% block style %} <link  rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
-    <div class="select-type">
-        {{form}}
-    </div>
-    <div class="filter-button">
-        <input type='submit' value="Filter" hidden>
-    </div>
+  <div class="select-type">
+    {{form}}
+  </div>
+  <div class="filter-button">
+    <input type='submit' value="Filter" hidden>
+  </div>
 </form>
 
 <section class="links-section">
-    {% for title in titles %}
-    <div class="home-links">
-     {% if title.is_live %}
-        <div class="live-logo">
-            live
-        </div>
-        <div class="time">
-            <div>Schedule Time: {{title.scheduled_time}}</div>
-            <div>End Time:  {{title.end_time}}</div>
-        </div>
-     {% endif %}
-        <div class="tests-links">
-            {{ title.Question_Paper_Title }}
-        </div>
-        <div class="test-description">
+  <div class="container">
+    <div class="row row-cols-3">
+      {% for title in titles %}
+      <div class="col">
+        <div class="card  border-primary mb-3" style="width: 18rem;max-height: 25rem;min-height:15rem;padding: 1rem;">
+          {% if title.Front_image %}
+          <img src="{{title.Front_image.url}}" class="card-img">
+          {% endif %}
+          <div class="card-img-overlay">
+            {% if title.is_live %}
+            <div class="live-logo">
+              live
+            </div>
+            <div class="card-header" style="background: lightblue;font-weight: bold;">
+              <div>Schedule Time: {{title.scheduled_time}}</div>
+              <div>End Time: {{title.end_time}}</div>
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="card-title">
+            {{ title.Question_Paper_Title|title }}
+          </div>
+          <div class="card-body">
             {{title.description}}
+          </div>
+          <a class="btn btn-primary card-link design-link" style="position: relative;width: 4rem;align-self:center;"
+            href="{% url 'jeetests:index' title.id %}">
+            Start
+          </a>
         </div>
-        <a class="give-test" href="{% url 'jeetests:index' title.id %}">
-        <button>Start</button>
-        </a>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
+  </div>
 </section>
 <script src="{% static 'home.js' %}">
 </script>

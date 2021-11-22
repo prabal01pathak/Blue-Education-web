@@ -1,5 +1,7 @@
 from django.db import models
 from tests.models import *
+from tinymce import models as tiny_models
+
 
 """
 exam_choice = (("JEE Mains","JEE Mains"),("JEE Advanced","JEE Advanced"))
@@ -17,3 +19,8 @@ class Chemistry(Questions):
     paper_title = models.ForeignKey(JeePaperTitle, on_delete=models.CASCADE)
     pass
 """
+class Topic(models.Model):
+    title = models.CharField(max_length=100)
+    Ano = tiny_models.HTMLField()
+    def __str__(self):
+        return self.title

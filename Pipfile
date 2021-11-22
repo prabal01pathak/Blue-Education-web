@@ -12,6 +12,10 @@ gunicorn = "*"
 whitenoise = "*"
 pipfile = "*"
 tzlocal = "*"
+django-ckeditor = "*"
+django-tinymce = "*"
+pillow = "*"
+django-filebrowser = "*"
 
 [dev-packages]
 

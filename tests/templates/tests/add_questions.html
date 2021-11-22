@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add questions
+{% endblock %}
+{% block style %}
+{{form.media}}
+{% endblock %}
+
+{% block content %}
+<h2>Title: {{title}}</h2>
+<div class="container-fluid">
+    <form action="" method="post">{% csrf_token %}
+        <div class="row">
+            {% for f in form %}
+            {% if f.errors %}
+            <div style='color: red;'>{{f.errors}}</div>
+            {% endif %}
+            <div style="color:blue;">{{f.help_text|title}}</div>
+        </div class="col">
+        <label class="form-lablel">{{f.label}}:
+</div></label>
+{{f}}
+</div>
+{% endfor %}
+</div>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <input type="submit" class="btn btn-outline-success me-md-2" value="Submit">
+</div>
+</form>
+</div>
+<script>
+    /* change input class */
+    $(document).ready(function () {
+        $('input').addClass('form-control');
+    });
+</script>
+{% endblock %}

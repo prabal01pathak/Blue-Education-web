@@ -3,12 +3,12 @@
 
 {% block title %}{{title}}{% endblock %}
 {% block style %}
-<link rel='stylesheet' herf="{% static 'home.css' %}">
+    <link rel='stylesheet' herf="{% static 'home.css' %}">
 {% endblock %}
 
 {% block content %}
 <div>
-{{data|safe}}
+    {{data|safe}}
 </div>
 <p> {{student.answers|safe}} </p>
 {% endblock %}

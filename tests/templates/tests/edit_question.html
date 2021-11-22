@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{question.description}}
+{% endblock %}
+
+{% block style %}
+    {{form.media}}
+{% endblock %}
+
+{% block content %}
+{{title}}
+<form action="" method="post">{% csrf_token %}
+    {{form}}
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <input type='submit' value='submit'>
+    </div>
+</form>
+<script>
+    /* chage input class */
+    $(document).ready(function () {
+        $('input').addClass('form-control');
+        $('input[type="submit"]').addClass('btn btn-outline-success');
+    });
+</script>
+{% endblock %}

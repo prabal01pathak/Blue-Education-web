@@ -9,7 +9,11 @@ var radioCheck = document.querySelectorAll('.radio-check');
 var upArrow = document.querySelector('.up-arrow');
 var instruction = document.querySelector('.instructions'); 
 var main =  document.querySelector('.main');
-var questionForm = document.querySelector('form'); 
+var questionForm = document.querySelector('#form'); 
+
+
+
+/* bring question updated list on click uparrow */
 
 radioCheck.forEach((item) => {
     upArrow.addEventListener('click', (e) => {
@@ -39,6 +43,8 @@ radioCheck.forEach((item) => {
     });
 });
 
+/* ========================== */
+
 questions.forEach((item,index) => { 
     item.addEventListener('click', () => {
         element = radioCheck[index];
@@ -67,9 +73,15 @@ questions.forEach((item,index) => {
 });
 function timer(time) {
     var timer = document.querySelector('.clock');
-    var minute = time;
+    var minute = time-1;
     var second = 60;
     var interval = setInterval(function() {
+        if (minute < 1 && second < 1) {
+            clearInterval(interval);
+            timer.innerHTML = "Time's up!";
+            var submitButton = document.querySelector('input[type=submit]'); 
+            submitButton.click();
+        };
         second--;
         if (second<10) {
             var show_second = `0${second}`;
@@ -87,14 +99,10 @@ function timer(time) {
             minute--;
             second = 60;
         };
-        if (minute < 1 && second < 1) {
-            clearInterval(interval);
-            timer.innerHTML = "Time's up!";
-            var submitButton = document.querySelector('input[type=submit]'); 
-            submitButton.click();
-        };
     }, 1000);
 }
+
+/* Accept instructions and show question if it is valid selection */
 
 function accept_instructions() {
     var checkBox = document.querySelector("input[type=checkbox]");
@@ -107,6 +115,8 @@ function accept_instructions() {
         timer(parseInt(value));
     }
 };
+
+/* =============== */
     
 
 
@@ -144,9 +154,16 @@ try {
     var button = document.querySelector("#startButton");
     button.addEventListener("click", accept_instructions);
 } catch (error) {
-    '';
+    console.log(error);
 };
-var instructions = document.getElementsByClassName('instructions');
+var instructions = document.querySelectorAll('.instructions');
+console.log(instructions.length);
 if (instructions.length == 1) {
     questionForm.style.display = "none";
+    console.log(questionForm)
 }
+
+$("navbar-toggler").blur( () => {
+   $("collapse").collapse('hide'); 
+    console.log("collapse");
+})
