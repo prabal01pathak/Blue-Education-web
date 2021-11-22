@@ -11,7 +11,8 @@
     <div class="dash-user">
         {{user}} Exam history
     </div>
-    <table class="dashboard">
+    <div class="table-responsive">
+    <table class='table caption-top align-middle'>
         <caption><div class="caption">{{item.paper.exam_type}}</div></caption>
         <thead>
             <tr>
@@ -25,7 +26,8 @@
         <tbody>
         {% for item in data %}
             <tr>
-                <td><a href="{% url "user_auth:view-paper" item.paper_id %}" style="color: blue;">{{item.paper}}</a></td>
+                <td><a href="{% url "user_auth:view-paper" item.paper_id %}" style="color: blue;">
+                    <span style='word-break:break-all;'>{{item.paper}}<span></a></td>
                 <td>{{item.rank}}</td>
                 <td>{{item.marks}}</td>
                 <td>{{item.attempts}}</td>
@@ -34,6 +36,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 </div>
 {% else %}
 <div> Nothing here</div>

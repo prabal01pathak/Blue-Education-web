@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load index %}
+{% block title %}
+{{title}} {{model}} Questions
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'tests/css/show_assign.css' %}">
+<link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- show visited links -->
+<div class="reach-link"><a href="{% url 'jeetests:show-title' %}">Show Title</a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right"
+        viewBox="0 0 16 16">
+        <path
+            d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+    </svg><a href="{% url 'jeetests:get-subject' title.id %}">{{title|title}}</a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right"
+        viewBox="0 0 16 16">
+        <path
+            d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+    </svg><a href="#">{{model|title}}</a>
+</div>
+<!--end of link section -->
+
+
+<!-- select all checkbox -->
+<div class="select-all">
+    <input type="checkbox" id="select-all">
+    <label for="select-all">Select all</label>
+</div>
+<!--end of select section -->
+
+<form action="" method="post">{% csrf_token %}
+    <!-- actions to take -->
+    <div class="actions-list">
+        <select name="do-action" id="do-action">
+            <option>Select Action</option>
+            <option value="assign_to_other" class="assign_select">Assign to other</option>
+            <option value="delete">Delete</option>
+        </select>
+        <button>Apply</button>
+    </div>
+    <!-- end of section -->
+
+    {% comment %}
+    titles and subjects to assign
+    {% endcomment %}
+
+    <div class="assign-things">
+        {% for single_title in titles %}
+        <div class="assign_title">
+            <input type="checkbox" name={{single_title.id}}{{forloop.counter}} value={{single_title.id}}>
+            {{single_title}}
+            {% for subject in single_title.subjects|subjects_list %}
+            <div class="titles_subject">
+                <input type="radio" name=subject{{single_title.id}} value={{subject}}>
+                {{subject}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% comment %}
+    end of assign section
+    {% endcomment %}
+
+
+    <!-- button to submit selections -->
+    <div class="link-to-add">
+        <a class="link-secondary" href="{% url 'jeetests:add-question' model title.id %}">Add new question</a>
+    </div>
+    <!-- end of section -->
+
+    <!-- available questions for given subject -->
+    <div class="container">
+        <div class="questions">
+            {% for question in questions %}
+            <div class="single-question">
+                <input type='checkbox' name=question{{forloop.counter}} value='{{question.id}}' />
+                <a class="link-success" href="{% url 'jeetests:edit-question' question.id model title.id %}">
+                    <span>{{forloop.counter}}. </span><span>{{question.description|safe}}</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- end of section -->
+    </div>
+</form>
+</div>
+<script src="{% static 'tests/js/show_assign.js' %}"></script>
+{% endblock %}

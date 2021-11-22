@@ -6,9 +6,11 @@ form {
 }
 table {
     padding: 1em;
+
     background-color: #ffffffc7;
     margin: 1em;
     border-radius: 1em;
+    resize: both;
 }
 .caption {
     font-size: 1.2em;

@@ -14,11 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include, re_path
+from home.views import create
+from django.conf.urls.static import static
+from django.conf import settings
+from JEE.views import upload_img
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('tests.urls')),
-    path('user_auth/',include('user_auth.urls')),
+    path('upload/', upload_img, name='image-upload'),
+    path('', include('tests.urls')),
+    path('', include('courses.urls')),
+    path('ckeditor', include('ckeditor_uploader.urls')),
+    path('tinymce', include('tinymce.urls')),
+    path('user_auth/', include('user_auth.urls')),
+    re_path(r'^create/page-(?P<year>[0-9]{4})', create),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

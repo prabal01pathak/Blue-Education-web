@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from tinymce.models import HTMLField
+
 
 # Create your models here.
 
@@ -14,6 +16,7 @@ answer_choice = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'))
 exam_choice = (('JEE Mains','JEE Mains'),('NEET','NEET'),('PAT','PAT'),('GATE','GATE'))
 marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
 minus_marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
+subjects_choices = (("Math","Math"),("Chemistry","Chemistry"),("Physics","Physics"),("Biology","Biology"),("Agriculture","Agriculture"))
 
 class Paper_Title(models.Model):
     Question_Paper_Title = models.CharField(max_length=200)
@@ -25,7 +28,7 @@ class Paper_Title(models.Model):
     hidden = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
     remove_live_minutes = models.IntegerField(default=15,blank=True)
-    description = models.TextField(blank=True,default='')
+    description = HTMLField(blank=True,default='')
     
     class Meta:
         abstract = True
@@ -34,6 +37,7 @@ class Paper_Title(models.Model):
         return self.Question_Paper_Title
 
 class Title(models.Model):
+    Front_image = models.ImageField(blank=True,default='',upload_to="images/")
     Question_Paper_Title = models.CharField(max_length=200)
     exam_type = models.CharField(max_length=100,blank=True,choices=exam_choice,default='Jee')
     marking_scheme = models.CharField(max_length=200,blank=True,choices=marking_choice,default='0',help_text="assigned marks for every questions") 
@@ -43,7 +47,8 @@ class Title(models.Model):
     hidden = models.BooleanField(default=False)
     is_live = models.BooleanField(default=False)
     remove_live_minutes = models.IntegerField(default=15,blank=True)
-    description = models.TextField(blank=True,default='')
+    description = HTMLField(blank=True,default='')
+    subjects = models.CharField(max_length=200,blank=True,default='Math')
 
     def __str__(self):
         return self.Question_Paper_Title
@@ -52,7 +57,7 @@ class Title(models.Model):
 class Questions(models.Model):
     paper_title = models.ForeignKey(Title, on_delete=models.CASCADE)
     Q_No = models.IntegerField(default=0,help_text="increament every time for unique paper type")
-    description = models.TextField()
+    description = HTMLField()
     type = models.CharField(max_length=20, choices=types, default='single',help_text="Please enter your answerin option1 for write type questions")
     option1 = models.CharField(max_length=500, blank=True)
     option2 = models.CharField(max_length=500, blank=True)
@@ -65,7 +70,7 @@ class Questions(models.Model):
     marking = models.FloatField(default=0,blank=True,help_text="assigned marks for this questions if same as title leave it.") 
     minus_marking = models.FloatField(default=0,blank=True,help_text="assigned negative marks for every questions if same as title leave it.") 
     answer = models.CharField(choices=answer_choice,default="A", max_length=100)
-    explanation = models.TextField(default='None',blank=True)
+    explanation = HTMLField(default='None',blank=True)
 
     class Meta:
         abstract=True

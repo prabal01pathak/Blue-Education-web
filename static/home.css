@@ -50,11 +50,11 @@
     background-size: cover;
 }
 .home-links:nth-of-type(2n) {
-    background-image: url(27programming.jpg);
+    background-image: linear-gradient(to bottom, #131818 0%, #091818 100%); 
     background-size: cover;
 }
 .home-links:nth-of-type(3n) {
-    background-image: url(4photos.jpg);
+    background-image: linear-gradient(to bottom, #310935 0%, #3c9999 100%); 
     background-size: cover;
 }
 

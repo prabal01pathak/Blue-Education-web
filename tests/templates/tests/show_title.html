@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Titles List{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'add_title.css' %}">
+<link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <div class="reach-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-caret-right" viewBox="0 0 16 16">
+            <path
+                d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+        </svg><a class="link-primary" href="{% url 'jeetests:show-title' %}">Show Title</a></div>
+    <div class="titles_list">
+        <div class='link-to-add'><a href="{% url 'jeetests:add-title' %}">Add Title</a></div>
+        <form action="" method="post">{% csrf_token %}
+            <select name="select_action" id="select_action">
+                <option value="">Select Action</option>
+                <option value="delete">Delete</option>
+            </select>
+            <button>Apply</button>
+            {% for title in data %}
+            <div class="container" style="margin: 20px 0px 0px 0px ;">
+                <div class="row ">
+                    <div class="col">
+                        <input class="form-control" type="checkbox" name={{title.id}} value="{{title.id}}">
+                    </div>
+                    <div class="col-6">
+                        <label class='form-label'><a style="word-break:break-all;" class="link-success"
+                                href="{% url 'jeetests:get-subject' title.id %}">{{forloop.counter}}.
+                                {{title}}</a></label>
+                    </div>
+                    <div class="col">
+                        <button><a style="color: white;" href="{% url 'jeetests:edit-title' title.id %}">Edit</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+</div>
+<script src="{% static 'add_title.js' %}"></script>
+<script>
+    var buttons = document.querySelectorAll("button");
+    buttons.forEach((item) => {
+        item.classList.add("btn");
+        item.classList.add("btn-dark");
+        item.style.margin = "20px 0px 0px 0px";
+    });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} 
+Add Title
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <table>
+    <tbody>
+        <tr>
+            <td colspan="2">Title</td>
+        </tr>
+        {% for f in form %}
+        {% if f.errors %}
+            <tr>
+                <td colspan="2">{{ f.errors }}</td> 
+            </tr>
+        {% endif %}
+        <tr>
+            <td>{{f.label}}</td>
+            <td>{{f}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+           <td colspan="2"> <input type="submit" value="Add"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</form>
+<script>
+/* chage input class */
+$(document).ready(function(){
+    $('input').addClass('form-control');
+    $('input[type="submit"]').addClass('btn btn-outline-success');
+});
+</script>
+{% endblock %}

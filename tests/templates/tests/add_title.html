@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add Title
+{% endblock %}
+{% block style %}
+{{form.media}}
+{% endblock %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    {{form}}
+    <input type="submit" value="Add">
+</form>
+<script>
+    /* chage input class */
+    $(document).ready(function () {
+        $('input').addClass('form-control');
+        $('input[type="submit"]').addClass('btn btn-outline-success');
+    });
+</script>
+{% endblock %}

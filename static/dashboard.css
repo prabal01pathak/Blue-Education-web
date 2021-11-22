@@ -16,7 +16,7 @@
     background-color: #fff;
 }
 */
-table {
+.result {
     position: relative;
     margin-top: auto;
 }
@@ -33,13 +33,13 @@ table {
 }
 
 @media screen and (max-width: 450px) {
-    table {
+    .result  {
         width: 100%;
         border-collapse: collapse;
         margin-right: auto;
         margin-left: 0em;
     }
-    table tr td {
+    .result tr td {
         padding: 3px;
         border: 1px solid rgb(243, 243, 243);
         text-align: center;

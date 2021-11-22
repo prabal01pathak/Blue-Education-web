@@ -8,3 +8,4 @@ admin.site.register(Math)
 admin.site.register(Physics)
 admin.site.register(Chemistry)
 """
+admin.site.register(Topic)

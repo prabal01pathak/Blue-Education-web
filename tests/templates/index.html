@@ -3,13 +3,13 @@
 {% load index %}
 {% block title %} {{ title }} {% endblock %}
 {% block style %}
-  <link rel="stylesheet" href="{% static 'index.css' %}"> 
+<link rel="stylesheet" href="{% static 'index.css' %}">
 {% endblock %}
 
 {% block content %}
 <main class="main">
 
-{% if not total_marks %}
+  {% if not total_marks %}
 
   {% comment %} enter time delay {% endcomment %}
   <div class="student-hours" hidden>{{remaining_time}}</div>
@@ -18,273 +18,290 @@
   <div class="instructions" id="paperInstruction">
 
     <div class="instructions_content">
-      <div class="paper_name"><h3> About Question Paper</h3></div>
-      <div class="paper_name"> <h3>{{title.Question_Paper_Title|upper}}</h3></div>
+      <div class="paper_name">
+        <h3> About Question Paper</h3>
+      </div>
+      <div class="paper_name">
+        <h3>{{title.Question_Paper_Title|upper}}</h3>
+      </div>
 
 
 
       <div class="instruct_time">
-      {% if title.is_live %}
-        <div class='start_exam'>Start Time : {{title.scheduled_time}}</div> 
-      {% endif %}
+        {% if title.is_live %}
+        <div class='start_exam'>Start Time : {{title.scheduled_time}}</div>
+        {% endif %}
         <div class="exam_time">Exam End Time: {{total_time}} minutes</div>
       </div>
 
       <div class="instruct_lines">
         <div><strong>1.</strong> Total Marks: {{subject_detail.total_marks}}</div>
-        <div><strong>2.</strong> Every question carry {{title.marking_scheme}} mark,<br> 
-        and negative<b><i>{{title.minus_marking_scheme}}</i></b> mark will be deducted for wrong answer.</div>
-        </div>
-        <div>{{subject_detail.subjects_name|safe}}</div>
+        <div><strong>2.</strong> Every select type question carry {{title.marking_scheme}} mark,<br>
+          and negative<b><i>{{title.minus_marking_scheme}}</i></b> mark will be deducted for every select type wrong
+          answer. <i><b>No marks will be deducted for write type questions.</b></i></div>
+      </div>
+      <div>{{subject_detail.subjects_name|safe}}</div>
       <div class="about_web_instructions">
         <div class="instruct_lines">
-        <div class="paper_name"><h3>About Web Exam</h3></div>
-        <div><strong>1.</strong> This is a web based examination. You will be redirected to the examination website after clicking on the start button.</div>
-        <div><strong>2.</strong> You can view question status by clicking up-arrow at bottom-right </br>
-                                of screen.</div> 
+          <div class="paper_name">
+            <h3>About Web Exam</h3>
+          </div>
+          <div><strong>1.</strong> This is a web based examination. You will be redirected to the examination website
+            after clicking on the start button.</div>
+          <div><strong>2.</strong> You can view question status by clicking up-arrow at bottom-right </br>
+            of screen.</div>
         </div>
       </div>
 
 
       <div class="checkbox">
-        <input type='checkbox' name='conditions' id='conditions' value='1' /> 
+        <input type='checkbox' name='conditions' id='conditions' value='1' />
         <label for='conditions'>Ok, Start</label>
       </div>
 
       <div class="instruction_button">
         <button id="startButton">Start</button>
       </div>
+    </div>
   </div>
-      </div>
 
-{% endif %}
-
-{% if total_marks %}
-<table class='result'>
-  <caption>ANALYSIS</caption>
-  <thead>
-    <tr>
-      <td>Subject</td>
-      <td>Marks</td>
-      <td>Right</td>
-    </tr>
-  </thead>
-  <tbody>
-    {% for key,result in exam_data.items %}
-    <tr>
-      <td>{{key}}</td>
-      <td>{{result.marks}}</td>
-      <td>{{result.rights}}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-      <td>Total</td>
-      <td>{{total_marks}}</td>
-      <td>{{total_rights}}</td>
-    </tr>
-    {% if not title.is_live %}
-    <tr>
-      <td colspan="2">Rank</td>
-      <td>{{rank}}</td>
-    </tr>
   {% endif %}
-  </tbody>
-</table>
-{% endif %}
 
-<div class="up-arrow">
-  <div class="up-img">
-    <img src="https://img.icons8.com/windows/32/000000/expand-arrow--v2.png"/.up>
+  {% if total_marks %}
+  <div class="table-responsive">
+    <table class='table table-dark caption-top align-middle'>
+      <caption>ANALYSIS</caption>
+      <thead>
+        <tr>
+          <td>Subject</td>
+          <td>Marks</td>
+          <td>Right</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key,result in exam_data.items %}
+        <tr>
+          <td>{{key}}</td>
+          <td>{{result.marks}}</td>
+          <td>{{result.rights}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td>Total</td>
+          <td>{{total_marks}}</td>
+          <td>{{total_rights}}</td>
+        </tr>
+        {% if not title.is_live %}
+        <tr>
+          <td colspan="2">Rank</td>
+          <td>{{rank}}</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
   </div>
-</div>
+  {% endif %}
 
-<div class="questions-links">
-{% for subject,model in models_list.items %}
-  <div class="subject-attempts">
-    <div class="subject-link"><a href="#{{model.name}}"><h3>{{model.name}}</h3></a></div>
-  {% for questions in model.model_name %}
-  <div name="option_{{model.name}}{{forloop.counter}}" class="radio-check">
-    <a class='question-link' href="#{{model.name}}{{forloop.counter}}"><div class="attempts">{{forloop.counter}}</div></a>
+  <div class="up-arrow">
+    <div class="up-img">
+      <img src="https://img.icons8.com/windows/32/000000/expand-arrow--v2.png" /.up>
+    </div>
   </div>
-  {% endfor %}
+
+  <div class="questions-links">
+    {% for subject,model in models_list.items %}
+    <div class="subject-attempts">
+      <div class="subject-link"><a href="#{{model.name}}">
+          <h3>{{model.name}}</h3>
+        </a></div>
+      {% for questions in model.model_name %}
+      <div name="option_{{model.name}}{{forloop.counter}}" class="radio-check">
+        <a class='question-link' href="#{{model.name}}{{forloop.counter}}">
+          <div class="attempts">{{forloop.counter}}</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
   </div>
-{% endfor %}
-</div>
 
 
 
-<div class='Schedule-time' hidden>{{title.scheduled_time}}</div>
-{% if title.scheduled_time > nowTime and title.is_live %}
- <script>
+  <div class='Schedule-time' hidden>{{title.scheduled_time}}</div>
+  {% if title.scheduled_time > nowTime and title.is_live %}
+  <script>
     var startButton = document.querySelector("#startButton");
     var ScheduleTime = document.querySelector(".Schedule-time");
-    startButton.addEventListener("click",() => {
+    startButton.addEventListener("click", () => {
       console.log("clicked");
       alert(`exam not started yet Schedule at ${ScheduleTime.innerText}`);
       window.history.go(-1);
-     });
+    });
   </script>
-{% else %}
-<form id='form' action="" method="post"> {% csrf_token %}
+  {% else %}
+  <form id='form' action="" method="post"> {% csrf_token %}
     <!-- math section -->
-  {% for subject,model in models_list.items  %}
-        <h2><a href="#" name={{model.name}}>{{model.name}}</a></h2>
-        {% for questions in model.model_name %}
-        <div class="question">
-            <a  class="just-link" name="{{model.name}}{{forloop.counter}}"></a>
-            <div  class="description" name="{{model.name}}.{{forloop.counter}}">
-              <div>{{forloop.counter}}. {{questions.description|safe}}</div>
-            </div>
-
-            {% if questions.type == 'write' %}
-            <div class="write">
-              <input type='text' name="option_{{model.name}}{{forloop.counter}}" >
-            </div>
-            {% else %}
-
-            <div class="options">
-              <div class='option'>
-                <input type="radio" class="option1" name="option_{{model.name}}{{forloop.counter}}" value="A">
-                <label for="option1">a). {{questions.option1|safe}}</label>
-              </div>
-
-              <div class="option">
-                <input type="radio" class="option2" name="option_{{model.name}}{{forloop.counter}}" value="B">
-                <label for="option2">b). {{questions.option2|safe}}</label>
-              </div>
-
-              <div class="option">
-                <input type="radio" class="option3" name="option_{{model.name}}{{forloop.counter}}" value="C">
-                <label for="option3">c). {{questions.option3|safe}}</label>
-              </div>
-
-              <div class="option">
-                <input type="radio" class="option4" name="option_{{model.name}}{{forloop.counter}}" value="D">
-                <label for="option4">d). {{questions.option4|safe}}</label><br>
-              </div>
-        </div>
-
-            {% endif %}
-
-            {% comment %}
-            Show the correct answer and choices
-            {% endcomment %}
-
-            {% comment %}
-            If user submitted the answer and paper not live
-            {% endcomment %}
-
-          {% if total_marks %}
-              {% if not title.is_live  %}
-
-                {% comment %}
-                give answer base on question type 
-                {% endcomment %}
-
-                {% if questions.type == 'write' %}
-
-                    {% if exam_data|index:model.name|index_value:forloop.counter|lower == questions.option1|lower %}
-                        <p class="symbol-right">✅</p>
-                        <div class="user-answer">
-                          <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
-                          <p>Answer: {{questions.option1}}</p>
-                        </div>
-
-                    {% elif exam_data|index:model.name|index_value:forloop.counter == '' %}
-                        <div class="user-answer">
-                          <p> <i><b>Not attempted</i></b></p>
-                          <p>Answer:  {{questions.option1}}</p>
-                        </div>
-
-                    {% else %}
-                        <div class="user-answer">
-                          <p class="symbol-wrong">❌</p>
-                          <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
-                          <p>Answer: {{questions.option1}}</p>
-                      </div>
-
-                    {% endif %}
-
-                {% else %}
-
-                    {% if exam_data|index:model.name|index_value:forloop.counter == questions.answer %}
-                        <p class="symbol-right">✅</p>
-                        <div class="user-answer">
-                          <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
-                          <p>Answer: {{questions.answer}}</p>
-                        </div>
-
-                    {% elif exam_data|index:model.name|index_value:forloop.counter == None %}
-                        <div class="user-answer">
-                          <p> <i><b>Not attempted</i></b></p>
-                          <p>Answer:  {{questions.answer}}</p>
-                        </div>
-
-                    {% else %}
-                        <div class="user-answer">
-                          <p class="symbol-wrong">❌</p>
-                          <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
-                          <p>Answer: {{questions.answer}}</p>
-                      </div>
-
-                  {% endif %}
-                  <p style="color: green;"> {{questions.difficulty}}</p>
-                  {% if questions.explanation == 'None' or questions.explanation == ''%}
-                      
-                  {% else %}
-                    <div class="user-answer">
-                        <p> <Strong><b>Explanation: </b></strong> {{questions.explanation|safe}}</p>
-                    </div>
-                  {% endif %}
-
-              {% endif %}
-              </div>
-
-          {% endif %}
-
-        {% endif %}
+    {% for subject,model in models_list.items %}
+    <h2><a href="#" name={{model.name}}>{{model.name}}</a></h2>
+    {% for questions in model.model_name %}
+    <div class="question">
+      <a class="just-link" name="{{model.name}}{{forloop.counter}}"></a>
+      <div class="description" name="{{model.name}}.{{forloop.counter}}">
+        <div>{{forloop.counter}}. {{questions.description|safe}}</div>
       </div>
 
-      {% endfor %}
+      {% if questions.type == 'write' %}
+      <div class="write">
+        <input type='text' name="option_{{model.name}}{{forloop.counter}}">
+      </div>
+      {% else %}
 
-  {% endfor %}
-        
+      <div class="options">
+        <div class='option'>
+          <input type="radio" class="option1" name="option_{{model.name}}{{forloop.counter}}" value="A">
+          <label for="option1">a). {{questions.option1|safe}}</label>
+        </div>
 
-  
+        <div class="option">
+          <input type="radio" class="option2" name="option_{{model.name}}{{forloop.counter}}" value="B">
+          <label for="option2">b). {{questions.option2|safe}}</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" class="option3" name="option_{{model.name}}{{forloop.counter}}" value="C">
+          <label for="option3">c). {{questions.option3|safe}}</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" class="option4" name="option_{{model.name}}{{forloop.counter}}" value="D">
+          <label for="option4">d). {{questions.option4|safe}}</label><br>
+        </div>
+      </div>
+
+      {% endif %}
+
+      {% comment %}
+      Show the correct answer and choices
+      {% endcomment %}
+
+      {% comment %}
+      If user submitted the answer and paper not live
+      {% endcomment %}
+
+      {% if total_marks %}
+      {% if not title.is_live %}
+
+      {% comment %}
+      give answer base on question type
+      {% endcomment %}
+
+      {% if questions.type == 'write' %}
+
+      {% if exam_data|index:model.name|index_value:forloop.counter|lower == questions.option1|lower %}
+      <p class="symbol-right">✅</p>
+      <div class="user-answer">
+        <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
+        <p>Answer: {{questions.option1}}</p>
+      </div>
+
+      {% elif exam_data|index:model.name|index_value:forloop.counter == '' %}
+      <div class="user-answer">
+        <p> <i><b>Not attempted</i></b></p>
+        <p>Answer: {{questions.option1}}</p>
+      </div>
+
+      {% else %}
+      <div class="user-answer">
+        <p class="symbol-wrong">❌</p>
+        <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
+        <p>Answer: {{questions.option1}}</p>
+      </div>
+
+      {% endif %}
+
+      {% else %}
+
+      {% if exam_data|index:model.name|index_value:forloop.counter == questions.answer %}
+      <p class="symbol-right">✅</p>
+      <div class="user-answer">
+        <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
+        <p>Answer: {{questions.answer}}</p>
+      </div>
+
+      {% elif exam_data|index:model.name|index_value:forloop.counter == None %}
+      <div class="user-answer">
+        <p> <i><b>Not attempted</i></b></p>
+        <p>Answer: {{questions.answer}}</p>
+      </div>
+
+      {% else %}
+      <div class="user-answer">
+        <p class="symbol-wrong">❌</p>
+        <p><strong>Choice:</strong> {{exam_data|index:model.name|index_value:forloop.counter}}</p>
+        <p>Answer: {{questions.answer}}</p>
+      </div>
+
+      {% endif %}
+      <p style="color: green;"> {{questions.difficulty}}</p>
+      {% if questions.explanation == 'None' or questions.explanation == ''%}
+
+      {% else %}
+      <div class="user-answer">
+        <p> <Strong><b>Explanation: </b></strong> {{questions.explanation|safe}}</p>
+      </div>
+      {% endif %}
+
+      {% endif %}
+    </div>
+
+    {% endif %}
+
+    {% endif %}
+    </div>
+
+    {% endfor %}
+
+    {% endfor %}
+
+
+
     {% if total_marks %}
-      <p></p>
+    <p></p>
     {% else %}
-    <div class="submit" >
-      <input  class="submit" type="submit" value="Submit">
+    <div class="submit">
+      <input class="submit" type="submit" value="Submit">
     </div>
     {% endif %}
-</form>
-{% endif %}
+  </form>
+  {% endif %}
 
 </main>
-
-    <!-- end of marks section -->
-
+<!-- end of marks section -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-$(':radio').mousedown(function(e){
-var $self = $(this);
-if( $self.is(':checked') ){
-var uncheck = function(){
-  setTimeout(function(){$self.removeAttr('checked');},0);
-};
-var unbind = function(){
-  $self.unbind('mouseup',up);
-};
-var up = function(){
-  uncheck();
-  unbind();
-};
-$self.bind('mouseup',up);
-$self.one('mouseout', unbind);
-}
-});
+  $(':radio').mousedown(function (e) {
+    var $self = $(this);
+    if ($self.is(':checked')) {
+      var uncheck = function () {
+        setTimeout(function () { $self.removeAttr('checked'); }, 0);
+      };
+      var unbind = function () {
+        $self.unbind('mouseup', up);
+      };
+      var up = function () {
+        uncheck();
+        unbind();
+      };
+      $self.bind('mouseup', up);
+      $self.one('mouseout', unbind);
+    }
+  });
+
+  $("iframe")
+    .attr({ "scrolling": "no", "src": "http://www.google.com/" })
+    .load(function () {
+      $(this).css("height", $(this).contents().height() + "px");
+    });
 </script>
 <script src="{% static 'index.js' %}"></script>
-
 {% endblock %}
