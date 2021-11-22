@@ -4,7 +4,7 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'home.css' %}">{% endblock %}
 {% block content %}
-<form method="post">{% csrf_token %}
+<form method="post" style="margin-bottom: 5em;">{% csrf_token %}
   <div class="select-type">
     {{form}}
   </div>
