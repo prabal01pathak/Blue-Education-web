@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['blueeducation.herokuapp.com','0.0.0.0','localhost','127.0.0.1']
@@ -235,7 +235,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'powerpaste_clean_filtered_inline_elements':True,
     'imagetools_toolbar': "",
     'external_plugins': {
-    'powerpaste': 'http://www.server.com/application/external_plugins/powerpaste/plugin.js'
+    'powerpaste': 'http://www.server.com/application/external_plugins/powerpaste/plugin.js',
+     'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js'
   },
     'paste_postprocess': """function(editor, fragment) {
     // Fragment is a DocumentFragment node containing the DOM structure of the pasted content,
