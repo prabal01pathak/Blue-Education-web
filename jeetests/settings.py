@@ -228,7 +228,8 @@ TINYMCE_DEFAULT_CONFIG = {
     "automatic_uploads": True,
     "plugins": "advlist autolink permanentpen formatpainter autoresize lists link template image charmap print preview anchor searchreplace visualblocks code  "
     "imagetools fullscreen insertdatetime media table powerpaste code help wordcount spellchecker quickbars toc",
-    "external_plugins": {'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js'},
+    "external_plugins": {'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js',
+                         'powerpaste':'http://www.server.com/application/external_plugins/powerpaste/plugin.js'},
    "toolbar": "fullscreen paste pastetext |undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "

@@ -3,9 +3,14 @@
 {% block style %}{{form.media}}{% endblock %}
 
 {% block content %}
-<textarea class="new"></textarea>
 <from action="" method="post"> {% csrf_token %}
-{{form}}
 <input type="submit" value="submit">
+<textarea class="new"></textarea>
 </form>
+<script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+<script>
+            ClassicEditor
+                        .create( document.querySelector( 'textarea' ) )
+                        .catch( error => {console.error( error );} );
+</script>
 {% endblock %}

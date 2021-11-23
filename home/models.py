@@ -6,3 +6,4 @@ from tinymce.models import HTMLField
 class Normal(models.Model):
     title = models.CharField(max_length=100)
     content = HTMLField()
+    some = models.TextField(blank=True,default='')

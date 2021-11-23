@@ -22,5 +22,6 @@ class Chemistry(Questions):
 class Topic(models.Model):
     title = models.CharField(max_length=100)
     Ano = tiny_models.HTMLField()
+    some = models.TextField(blank=True,default="")
     def __str__(self):
         return self.title

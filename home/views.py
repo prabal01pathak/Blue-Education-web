@@ -4,4 +4,4 @@ from .forms import NormalForm
 # Create your views here.
 def create(request):
     form = NormalForm()
-    return render(request,'Assignment.html',{'form':form})
+    return render(request,'change_form.html',{'form':form})
