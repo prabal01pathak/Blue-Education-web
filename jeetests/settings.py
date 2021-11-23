@@ -125,8 +125,6 @@ SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/xr0c8gy9wxc280e2sj6nzk3vdx7je1zp4q2fj3by22800ecg/tinymce/5/tinymce.min.js'
-TINYMCE_COMPRESSOR = False
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
