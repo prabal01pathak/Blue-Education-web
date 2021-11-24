@@ -26,89 +26,10 @@
 </head>
 
 <body>
-    {% comment %}
-    <section>
-        <header class="header">
-            <div class="logo">
-                <a href="{% url 'jeetests:home' %}">
-                    Blue Edu
-                </a>
-            </div>
-            <div class="nav-bar">
-                <div class="nav-1st"></div>
-                <div class="nav-2nd"></div>
-                <div class="nav-3rd"></div>
-            </div>
-            <div class="nav-links">
-                <div class="main-links">
-                    <ul>
-                        <div class="ul-links">
-                            <li><a href="{% url 'jeetests:home' %}">Home</a>
-                                <button class="extra-links-button"><img
-                                        src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v2.png" /
-                                        width='20px' height='20px'></button>
-                            </li>
-                            <div class="extra-links">
-                                <ul class="embed-links">
-                                    <li class="e-links"><a href="{% url 'jeetests:home' %}">About</a></li>
-                                    <li class="e-links"><a href="{% url 'jeetests:home' %}">Contact</a></li>
-                                    <li class="e-links"><a href="{% url 'jeetests:home' %}">Blog</a></li>
-                                </ul>
-                            </div>
-                            <li><a href="{% url 'jeetests:home' %}">SomeWhere</a>
-                                <button class="extra-links-button"><img
-                                        src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v2.png" /
-                                        width='20px' height='20px'></button>
-                            </li>
-                            <div class="extra-links">
-                                <ul class="embed-links">
-                                    <li><a href="#">ho</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-                <div class="user-links">
-                    <ul>
-                        <div class="ul-links">
-                            {% if user.is_authenticated %}
-                            <li><a href="{% url 'user_auth:dashboard' %}">Dashboard</a></li>
-                            <li><a href="{% url 'user_auth:profile' %}">Settings</a></li>
-                            <li><a href="{% url 'user_auth:logout' %}">Logout</a></li>
-                            {% if user.is_superuser %}
-                            <li><a href="{% url 'jeetests:add-title' %}">Add New Title</a></li>
-                            {% endif %}
-                            {% else %}
-                            <li><a href="{% url 'user_auth:login' %}">Login</a></li>
-                            <li><a href="{% url 'user_auth:signup' %}">Sign Up</a></li>
-                            {% endif %}
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </header>
-        {% block content %}{% endblock %}
-        <footer>
-            <div class="footer-links">
-                <a href="{% url 'jeetests:home' %}">Home</a>
-                {% if user.is_authenticated %}
-                <a href="{% url 'user_auth:logout' %}">Logout</a>
-                {% if user.is_superuser%}
-                <a href="{% url 'jeetests:show-title' %}">Available Titles</a>
-                {% endif %}
-                {% else %}
-                <a href="{% url 'user_auth:login' %}">Login</a>
-                <a href="{% url 'user_auth:signup' %}">Sign Up</a>
-                {% endif %}
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; 2020, All rights reserved Blue Education</p>
-            </div>
-        </footer>
-    </section>
-    {% endcomment %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="rgb(46, 47, 48);">
-        <a class="navbar-brand" href="{% url 'jeetests:home' %}">Blue Education</a>
+        <a class="navbar-brand" href="{% url 'jeetests:home' %}">
+        <img class="navbar-image" src="{% static 'logo5.png' %}" />
+        </a> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -119,6 +40,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'jeetests:home' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
+                {% block put_links %}
+                {% endblock %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -166,11 +89,23 @@
     {% endblock %}
     <footer class="bd-footer py-5 mt-5 bg-light">
         <div class="container py-5">
-            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <h5></h5>
-                <ul class="list-unstyled">
-                    <li class='mb-2'><a href="#"></a></li>
-                </ul>
+            <div class="row">
+                <div class="col-6">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class='mb-2'><a href="#">Tests</a></li>
+                        <li class='mb-2'><a href="#">Courses</a></li>
+                        <li class='mb-2'><a href="{% url 'jeetests:home' %}">Home</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 ">
+                    <h5>About</h5>
+                    <ul class="list-unstyled">
+                        <li class='mb-2'><a href="#">Contact Us</a></li>
+                        <li class='mb-2'><a href="#">Careers</a></li>
+                        <li class='mb-2'><a href="{% url 'jeetests:home' %}">Recomendations</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-6 col-lg-2 mb-3">
                 <h5></h5>
