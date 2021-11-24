@@ -425,7 +425,6 @@ input[type=submit]:hover,input[type=submit]:focus {
 }
 
 input[type=radio]:checked + label {
-    transform: scale(1.1);
     background-color: rgb(37, 25, 25);
     color:white;
     border-radius: 10px;
