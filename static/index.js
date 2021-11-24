@@ -10,6 +10,7 @@ var upArrow = document.querySelector('.up-arrow');
 var instruction = document.querySelector('.instructions'); 
 var main =  document.querySelector('.main');
 var questionForm = document.querySelector('#form'); 
+var clock = document.querySelector(".clock-container");
 
 
 

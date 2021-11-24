@@ -24,6 +24,8 @@ def get_time():
 
 
 
+def terms(request):
+    return render(request,'terms.html',{})
 
 def check_answers(choice, model, marking, minus_marking):
     # check type of input question
@@ -299,6 +301,7 @@ def home(requests):
         'titles': total_title,
         'form': form,
     }
+    print(form)
     if requests.method=="POST":
         form = FormFilter(requests.POST)
         filter_type = requests.POST['exam_type']

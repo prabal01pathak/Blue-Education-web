@@ -28,7 +28,7 @@ urlpatterns = [
     path('ckeditor', include('ckeditor_uploader.urls')),
     path('tinymce', include('tinymce.urls')),
     path('user_auth/', include('user_auth.urls')),
-    re_path(r'^create/page-(?P<year>[0-9]{4})', create),
+    path('create/',create),
 
 ]
 

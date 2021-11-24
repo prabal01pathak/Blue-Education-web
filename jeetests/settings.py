@@ -124,6 +124,9 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+"""
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/xr0c8gy9wxc280e2sj6nzk3vdx7je1zp4q2fj3by22800ecg/tinymce/5/tinymce.min.js'
+TINYMCE_COMPRESSOR = False
 
 
 MEDIA_URL = 'media/'
@@ -224,21 +227,18 @@ TINYMCE_DEFAULT_CONFIG = {
     "automatic_uploads": True,
     "plugins": "advlist autolink permanentpen formatpainter autoresize lists link template image charmap print preview anchor searchreplace visualblocks code  "
     "imagetools fullscreen insertdatetime media table powerpaste code help wordcount spellchecker quickbars toc",
-    "external_plugins": {'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js'},
-    "toolbar": "fullscreen paste pastetext |undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+    "external_plugins": {'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js',
+                         'powerpaste':'http://www.server.com/application/external_plugins/powerpaste/plugin.js'},
+   "toolbar": "fullscreen paste pastetext |undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
-    "fullscreen  preview save print | insertfile image media pageembed template link anchor template codesample imageupload imagetools| "
+    "fullscreen  previe save print | insertfile image media pageembed template link anchor template codesample imageupload imagetools| "
     "a11ycheck ltr rtl | showcomments addcomment code toc| tiny_mce_wiris_formulaEditor | tiny_mce_wiris_formulaEditorChemistry |  editimage ",
     "custom_undo_redo_levels": 10,
     'paste_data_image': True,
     'paste_merge_formats': False,
     'powerpaste_clean_filtered_inline_elements':True,
     'imagetools_toolbar': "",
-    'external_plugins': {
-    'powerpaste': 'http://www.server.com/application/external_plugins/powerpaste/plugin.js',
-     'tiny_mce_wiris': 'https://www.wiris.net/demo/plugins/tiny_mce/plugin.js'
-  },
     'paste_postprocess': """function(editor, fragment) {
     // Fragment is a DocumentFragment node containing the DOM structure of the pasted content,
     // after it has been filtered by the PowerPaste plugin.

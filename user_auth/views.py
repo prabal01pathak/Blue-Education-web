@@ -94,7 +94,7 @@ def create_user(request):
             last_name = form.cleaned_data.get('last_name')
             user = User.objects.get(username=username)
             UserExtraData.objects.create(user=user, mobile_number=mobile_no, accept_terms=accept_terms)
-            return redirect('/')
+            return redirect(reverse("user_auth:login"))
         return render(request, 'registration/register.html', {'form': form})
     return render(request, 'registration/register.html', {'form': form})
 
