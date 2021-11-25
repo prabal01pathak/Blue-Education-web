@@ -16,11 +16,12 @@ main {
 ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
+    height: 7px;
 	}
 	/* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-
-
+	background-color: lightblue;
+	border-radius: 10px;
 }
 
 .explore-card1 {
