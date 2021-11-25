@@ -2,6 +2,7 @@
     * global variables
 */
 
+
 var questionsLinks = document.querySelector('.questions-links'); 
 var upArrow = document.querySelector('.up-arrow');
 var questions = document.querySelectorAll('.question');
@@ -11,9 +12,43 @@ var instruction = document.querySelector('.instructions');
 var main =  document.querySelector('.main');
 var questionForm = document.querySelector('#form'); 
 var clock = document.querySelector(".clock-container");
+var submitButton = document.querySelector('input[type=submit]'); 
 
-
-
+try {
+    var chances = 0;
+    var clock = document.querySelector("#clock");
+    console.log(clock);
+    if (clock != null){
+        clock.addEventListener("click",() => {
+            video.classList.toggle("show_video");
+            console.log("video");
+        });
+        var video = document.querySelector("video");
+	var audio = document.querySelector("audio");
+        const vgaConstraints = {
+              video: { width: { exact: 140 }, height: { exact: 100 } },
+	      audio: true,
+        };
+        navigator.mediaDevices.getUserMedia(vgaConstraints).then((stream) => {
+              video.srcObject = stream;
+        });
+        window.addEventListener("blur", () => {
+            if (chances==0 && clock != 'null') {
+		console.log("this is great");
+	    };
+            if (chances > 0 && clock != 'null') {
+		alert("Don't distract otherwise you will fail");
+	    };
+            chances ++;
+            if (chances>=3 && clock != 'null') {
+                submitButton.click();
+            };
+        });
+    };
+}
+catch(e) {
+    alert(e);
+}
 /* bring question updated list on click uparrow */
 
 radioCheck.forEach((item) => {

@@ -138,6 +138,7 @@ def calculate_rank(title,user):
 @login_required(login_url="user_auth:login")
 def index(request, title_id):
     time = timezone.now()
+    print(request.COOKIES.keys())
     # get paper titles from database
     title = Title.objects.filter(id=title_id, hidden=False)
 
@@ -295,22 +296,53 @@ def home(requests):
         if now_time > remove_live_time:
             title.is_live = False
             title.save()
-    total_title = Title.objects.filter(hidden=False)
+    total_title = Title.objects.filter(hidden=False,is_live=False)
+    live_title = Title.objects.filter(hidden=False,is_live=True)
+    is_live_titles=False
+    if len(live_title) > 0:
+        is_live_titles=True
+    print(live_title)
     form = FormFilter()
     context = {
         'titles': total_title,
         'form': form,
+        'live_titles':live_title,
+        'is_live_titles':is_live_titles,
     }
     print(form)
     if requests.method=="POST":
         form = FormFilter(requests.POST)
         filter_type = requests.POST['exam_type']
-        total_title = Title.objects.filter(exam_type=filter_type,hidden=False)
+        total_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=False)
+        live_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=True)
+        is_live_titles=False
+        if len(live_title)>0:
+            is_live_titles=True
         context['titles'] = total_title
         context['form'] = form
+        context['live_titles']=live_title
+        context['is_live_titles']=is_live_titles
         return render(requests,'home.html',context)
     return render(requests, 'home.html', context)
 
+def filter_pages(request,filter_type):
+    print(type(filter_type))
+    if filter_type.lower()=="all":
+        title = Title.objects.filter(hidden=False,is_live=False)
+        live_title = Title.objects.filter(hidden=False,is_live=True)
+    else:
+        title = Title.objects.filter(hidden=False,is_live=False,exam_type=filter_type)
+        live_title = Title.objects.filter(hidden=False,is_live=True,exam_type=filter_type)
+    is_live_titles = False
+    if len(live_title)>0:
+        is_live_titles=True
+    context = {
+            'titles':title,
+            'live_titles':live_title,
+            'is_live_titles':is_live_titles,
+            'head_title':f"{filter_type} Tests",
+            }
+    return  render(request,'tests/filter_type.html',context)
 
 # list all available titles 
 @login_required(login_url = "user_auth:login")
@@ -650,3 +682,7 @@ def edit_question(request,question_id,model,title_id):
             return redirect(reverse('jeetests:show-question',kwargs={'model':model,'title_id':title_id})) 
         return render(request,'tests/edit_question.html',context)
     return render(request,'tests/edit_question.html',context)
+
+
+def contact_us(request):
+    return render(request,'tests/contact_us.html',{})

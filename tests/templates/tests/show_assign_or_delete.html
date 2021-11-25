@@ -50,6 +50,9 @@
     {% endcomment %}
 
     <div class="assign-things">
+	<div class="assign_title_button">
+	    <div class="btn btn-primary">Hide</div>
+	</div>
         {% for single_title in titles %}
         <div class="assign_title">
             <input type="checkbox" name={{single_title.id}}{{forloop.counter}} value={{single_title.id}}>

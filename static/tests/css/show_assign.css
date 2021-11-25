@@ -38,13 +38,15 @@ form .assign-things input[type='radio']{
     margin-left: 1.2em;
     position: fixed;
     right:0;
-    top:0;
+    top:250px;
     bottom:0;
     background:rgb(4, 190, 214);
     text-transform: capitalize;
     transform: translateX(100%);
     transition: all 0.5s ease-in-out;
     overflow:auto;
+    z-index: 4;
+    word-break:break-all;
 }
 form .assign-things input[type='radio']{
     display: inline-block;
