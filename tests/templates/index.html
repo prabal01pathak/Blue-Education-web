@@ -10,12 +10,13 @@
 <main class="main">
 
   {% if not total_marks %}
+  <video autoplay></video>
+  <audio muted></audio>
 
   {% comment %} enter time delay {% endcomment %}
   <div class="student-hours" hidden>{{remaining_time}}</div>
   <div id="clock">Remaining Time: <span class="clock"></span></div>
   <div class="instructions" id="paperInstruction">
-
     <div class="instructions_content">
       <div class="paper_name">
         <h3> About Question Paper</h3>
@@ -49,8 +50,13 @@
             after clicking on the start button.</div>
           <div><strong>2.</strong> You can view question status by clicking up-arrow at bottom-right </br>
             of screen.</div>
+          <div><strong>3.</strong> Don't click anywhere outside of browser tab otherwise exam will auto submit. </br>
+            </div>
+          <div><strong>3.</strong> click on clock to view streaming video .</br>
+            </div>
         </div>
-      </div>
+        </div>
+        </div>
 
 
       <div class="checkbox">
