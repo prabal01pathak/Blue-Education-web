@@ -45,10 +45,6 @@ INSTALLED_APPS = [
     'tests',
     'user_auth',
     'courses',
-    'JEE',
-    "PAT",
-    "NEET",
-    "GATE",
     'tinymce',
     'home',
 ]
