@@ -18,11 +18,9 @@ from django.urls import path, include, re_path
 from home.views import create
 from django.conf.urls.static import static
 from django.conf import settings
-from JEE.views import upload_img
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', upload_img, name='image-upload'),
     path('', include('tests.urls')),
     path('', include('courses.urls')),
     path('ckeditor', include('ckeditor_uploader.urls')),

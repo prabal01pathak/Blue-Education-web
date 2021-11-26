@@ -282,7 +282,6 @@ def index(request, title_id):
 title = Title.objects.get(id=1)
 for i in range(0,10):
     Physics.objects.create(paper_title=title,description="sldfjsldjfsldjfsdjfsdfjsldjfsdjfdsf",marking = 4,minus_marking=2)
-
     print(i)
     """
 
