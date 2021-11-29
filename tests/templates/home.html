@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="card-title manage-title">
-            <h4 class="title">{{ title.Question_Paper_Title|title }}</h4>
+            <h4 class="title" style="padding:3px;">{{ title.Question_Paper_Title|title }}</h4>
           </div>
           <div class="card-body" style>
             {{title.description|safe}}
@@ -104,7 +104,7 @@
             <img src="{% static 'logo5.png' %}" class="card-img image-show" style="height:7rem;">
           {% endif %}
           <div class="card-title">
-            <h4 class="title">{{ title.Question_Paper_Title|title }}</h4>
+            <h4 class="title" style="padding: 3px;">{{ title.Question_Paper_Title|title }}</h4>
           </div>
           <div class="card-body" style>
             {{title.description|safe}}
