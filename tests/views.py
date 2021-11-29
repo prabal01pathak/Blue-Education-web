@@ -716,11 +716,16 @@ def message_send(request):
         email  = request.POST['email']
         message = request.POST['message']
         return render(request,'tests/contact_us.html',{'post':True})
-    return HttpResponse("Don't do that ")
+    return redirect(reverse("jeetests:home"))
 
 # careers page 
 def careers(request):
     return render(request,'tests/contact_us.html',{'careers':True})
+
 # recomendation page
 def recomend(request):
+    return render(request,'tests/contact_us.html',{'recomend':True})
+
+# serach box handler
+def handle_search(request):
     return render(request,'tests/contact_us.html',{'recomend':True})
