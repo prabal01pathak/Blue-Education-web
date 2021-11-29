@@ -66,7 +66,6 @@ main {
 }
 .explore-card {
 	background-color: rgba(120,150,120,0.5);
-	color: black;
 }
 .explore-card {
 	height: 15rem;
@@ -75,7 +74,8 @@ main {
 .set-image2,
 .set-image3,
 .set-image4,
-.set-image5 {
+.set-image5,
+.set-image6 {
     background-size:cover;
     color: white;
     font-size: 1.5em;
@@ -96,11 +96,15 @@ main {
 .set-image5 {
     background-image:url("./image_bu.jpg");
 }
+.set-image6 {
+    background-image:url("./image_jee.jpg");
+}
 .set-image1:hover .card-title,
 .set-image2:hover .card-title,
 .set-image3:hover .card-title,
 .set-image4:hover .card-title,
-.set-image5:hover .card-title {
+.set-image5:hover .card-title,
+.set-image6:hover .card-title {
     background-color: black;
     border-radius: 10px;
     padding: 5px;
