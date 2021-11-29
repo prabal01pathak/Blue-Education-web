@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect,reverse
-from .models import Title, StudentData, Math, Chemistry, Physics,Biology,Agriculture
+from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import tzlocal
 from .forms import AddTitleForm,AddQuestionForm
 
-subject_model_names = ['Math','Chemistry','Physics','Account','OperatingSystem','DBMS','DigitalElectronics','COA','ComputerNetworks','DataScience','CyberSecurity','Biology','Agriculture'] # list of all subjects in the database 
+subject_model_names = ['Math','Chemistry','Physics','Biology','Agriculture','Account','OperatingSystem','DBMS','DigitalElectronics','COA','ComputerNetworks','DataScience','CyberSecurity']# list of all subjects in the database 
 # get time of database
 def get_time():
     import datetime
@@ -307,7 +307,8 @@ for i in range(0,10):
     """
 
 def home(requests):
-    titles = Title.objects.filter(is_live=True,hidden=False)
+    titles = Title.objects.filter(is_live=True,hidden=False).order_by('scheduled_time')
+    print(titles)
     now_time = timezone.now()
     for title in titles:
         end_time = title.end_time

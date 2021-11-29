@@ -29,6 +29,8 @@
           {% if title.Front_image %}
 
             <img src="{{title.Front_image.url}}" class="card-img image-show" style="height: 7rem;">
+          {% else %}
+            <img src="{% static 'logo5.png' %}" class="card-img image-show" style="height:7rem;">
           {% endif %}
           <div class="card-img-overlay">
             <div class="card-header timer-show" style="background: lightblue;font-weight: bold;">
@@ -54,6 +56,16 @@
 <section class="links-section">
     <div class="container">
 	<div class="card-position">
+        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
+	    <div class="card explore-card3 set-image">
+		<div class="card-title">Gate</div>
+	    </div>
+	</a>
+	<a href="{% url 'jeetests:filter_type' 'Computer Science' %}" class="card-link">
+	    <div class="card explore-card3 set-image">
+		<div class="card-title">Computer Science</div>
+	    </div>
+	</a>
 	<a href="{% url 'jeetests:filter_type' 'JEE Mains' %}" class="card-link">
 	    <div class="card explore-card1">
 		<div class="card-title ">Jee Mains</div>
@@ -64,19 +76,9 @@
 		<div class="card-title">Neet</div>
 	    </div>
 	</a>
-        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
-	    <div class="card explore-card3 set-image">
-		<div class="card-title">Gate</div>
-	    </div>
-	</a>
         <a href="{% url 'jeetests:filter_type' 'PAT' %}" class="card-link">
 	    <div class="card explore-card4 set-image">
 		<div class="card-title">PAT</div>
-	    </div>
-	</a>
-	<a href="{% url 'jeetests:filter_type' 'Computer Science' %}" class="card-link">
-	    <div class="card explore-card3 set-image">
-		<div class="card-title">Computer Science</div>
 	    </div>
 	</a>
 	<a href="{% url 'jeetests:filter_type' 'Business' %}" class="card-link">
@@ -98,6 +100,8 @@
           <a href="{% url 'jeetests:index' title.id %}">
           {% if title.Front_image %}
             <img src="{{title.Front_image.url}}" class="card-img image-show" style="height: 7rem;">
+          {% else %}
+            <img src="{% static 'logo5.png' %}" class="card-img image-show" style="height:7rem;">
           {% endif %}
           <div class="card-title">
             <h4 class="title">{{ title.Question_Paper_Title|title }}</h4>
@@ -116,9 +120,14 @@
 <section class="links-section">
     <div class="container">
 	<div class="card-position">
-	<a href="{% url 'jeetests:filter_type' 'JEE Mains' %}" class="card-link">
-	    <div class="card explore-card set-image1">
-		<div class="card-title ">Jee Mains & Advanced</div>
+        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
+	    <div class="card explore-card set-image3">
+		<div class="card-title">Gate For Computer Science</div>
+	    </div>
+	</a>
+        <a href="{% url 'jeetests:filter_type' 'Computer Science' %}" class="card-link">
+	    <div class="card explore-card set-image5">
+		<div class="card-title">Computer Science</div>
 	    </div>
 	</a>
         <a href="{% url 'jeetests:filter_type' 'NEET' %}" class="card-link">
@@ -126,19 +135,14 @@
 		<div class="card-title">Neet Courses</div>
 	    </div>
 	</a>
-        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
-	    <div class="card explore-card set-image3">
-		<div class="card-title">Gate For Computer Science</div>
+	<a href="{% url 'jeetests:filter_type' 'JEE Mains' %}" class="card-link">
+	    <div class="card explore-card set-image1">
+		<div class="card-title ">Jee Mains & Advanced</div>
 	    </div>
 	</a>
         <a href="{% url 'jeetests:filter_type' 'PAT' %}" class="card-link">
 	    <div class="card explore-card set-image4">
 		<div class="card-title">PAT</div>
-	    </div>
-	</a>
-        <a href="{% url 'jeetests:filter_type' 'Computer Science' %}" class="card-link">
-	    <div class="card explore-card set-image5">
-		<div class="card-title">Computer Science</div>
 	    </div>
 	</a>
 	<a href="{% url 'jeetests:filter_type' 'Business' %}" class="card-link">

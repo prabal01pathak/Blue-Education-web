@@ -71,6 +71,45 @@ main {
 .explore-card {
 	height: 15rem;
 }
+.set-image1,
+.set-image2,
+.set-image3,
+.set-image4,
+.set-image5,
+.set-image6 {
+    background-size:cover;
+    color: white;
+    font-size: 1.5em;
+    transition:all 0.5 ;
+}
+.set-image1 {
+    background-image:url("./image_jee.jpg");
+}
+.set-image2 {
+    background-image:url("./image_neet.jpg");
+}
+.set-image3 {
+    background-image:url("./image_gate.jpg");
+}
+.set-image4 {
+    background-image:url("./image_pat.jpg");
+}
+.set-image5 {
+    background-image:url("./image_bu.jpg");
+}
+.set-image6 {
+    background-image:url("./image_jee.jpg");
+}
+.set-image1:hover .card-title,
+.set-image2:hover .card-title,
+.set-image3:hover .card-title,
+.set-image4:hover .card-title,
+.set-image5:hover .card-title {
+    background-color: black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
 .tests-links {
     color: white;
     width: 70%;
