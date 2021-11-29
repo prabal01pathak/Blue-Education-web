@@ -115,27 +115,27 @@
 <section class="links-section">
     <div class="container">
 	<div class="card-position">
-	<a href="{% url 'jeetests:index' 1 %}" class="card-link">
+	<a href="{% url 'jeetests:filter_type' 'JEE Mains' %}" class="card-link">
 	    <div class="card explore-card">
 		<div class="card-title ">Jee Mains & Advanced</div>
 	    </div>
 	</a>
-	<a href="#" class="card-link">
+        <a href="{% url 'jeetests:filter_type' 'NEET' %}" class="card-link">
 	    <div class="card explore-card set-image">
 		<div class="card-title">Neet Courses</div>
 	    </div>
 	</a>
-	<a href="#" class="card-link">
+        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
 	    <div class="card explore-card set-image">
 		<div class="card-title">Gate For Computer Science</div>
 	    </div>
 	</a>
-	<a href="#" class="card-link">
+        <a href="{% url 'jeetests:filter_type' 'PAT' %}" class="card-link">
 	    <div class="card explore-card set-image">
 		<div class="card-title">PAT</div>
 	    </div>
 	</a>
-	<a href="#" class="card-link">
+        <a href="{% url 'jeetests:filter_type' 'GATE' %}" class="card-link">
 	    <div class="card explore-card set-image">
 		<div class="card-title">Computer Science</div>
 	    </div>

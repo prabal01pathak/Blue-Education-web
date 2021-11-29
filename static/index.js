@@ -30,7 +30,8 @@ try {
 	      audio: true,
         };
         navigator.mediaDevices.getUserMedia(vgaConstraints).then((stream) => {
-
+              video.autoplay=true;
+              video.muted=true;
               video.srcObject = stream;
         });
         window.addEventListener("blur", () => {
