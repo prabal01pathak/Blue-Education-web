@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import tzlocal
 from .forms import AddTitleForm,AddQuestionForm
 
-subject_model_names = ['Math','Chemistry','Physics','Biology','Agriculture']#,'Account','OperatingSystem','DBMS','DigitalElectronics','COA','ComputerNetworks','DataScience','CyberSecurity', # list of all subjects in the database 
+subject_model_names = ['Math','Chemistry','Physics','Biology','Agriculture','Account','OperatingSystem','DBMS','DigitalElectronics','COA','ComputerNetworks','DataScience','CyberSecurity']# list of all subjects in the database 
 # get time of database
 def get_time():
     import datetime

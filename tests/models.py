@@ -101,7 +101,6 @@ class Chemistry(Questions):
 class Physics(Questions):
     pass
 
-"""
 class Account(Questions):
     pass
 class OperatingSystem(Questions):
@@ -120,7 +119,6 @@ class DataScience(Questions):
     pass
 class CyberSecurity(Questions):
     pass
-    """
 class Biology(Questions):
     pass
 class Agriculture(Questions):
