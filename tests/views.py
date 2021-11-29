@@ -307,7 +307,7 @@ for i in range(0,10):
     """
 
 def home(requests):
-    titles = Title.objects.filter(is_live=True,hidden=False).order_by('scheduled_time')
+    titles = Title.objects.filter(is_live=True,hidden=False).order_by('scheduled_time').order_by('-scheduled_time')
     print(titles)
     now_time = timezone.now()
     for title in titles:
@@ -317,8 +317,8 @@ def home(requests):
         if now_time > remove_live_time:
             title.is_live = False
             title.save()
-    total_title = Title.objects.filter(hidden=False,is_live=False)
-    live_title = Title.objects.filter(hidden=False,is_live=True)
+    total_title = Title.objects.filter(hidden=False,is_live=False).order_by('-scheduled_time')
+    live_title = Title.objects.filter(hidden=False,is_live=True).order_by('-scheduled_time')
     is_live_titles=False
     if len(live_title) > 0:
         is_live_titles=True

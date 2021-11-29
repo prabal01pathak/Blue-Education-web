@@ -88,8 +88,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-right: 10em;">
                         <a class="dropdown-item" href="{% url 'user_auth:dashboard' %}">Dashboard</a>
                         {% if user.is_superuser %}
-                        <a class="dropdown-item" href="{% url 'jeetests:add-title' %}">Add New Title</a>
-                        <a class="dropdown-item" href="{% url 'jeetests:show-title' %}">Available Titles</a>
+                        <a class="dropdown-item" href="{% url 'jeetests:add-title' %}">Create Exam</a>
+                        <a class="dropdown-item" href="{% url 'jeetests:show-title' %}">Available Exams</a>
                         {% endif %}
                         <a class="dropdown-item" href="{% url 'user_auth:profile' %}">Settings</a>
                         <a class="dropdown-item" href="{% url 'user_auth:logout' %}">Logout</a>
