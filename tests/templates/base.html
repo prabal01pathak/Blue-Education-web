@@ -90,6 +90,7 @@
                         {% if user.is_superuser %}
                         <a class="dropdown-item" href="{% url 'jeetests:add-title' %}">Create Exam</a>
                         <a class="dropdown-item" href="{% url 'jeetests:show-title' %}">Available Exams</a>
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Section</a>
                         {% endif %}
                         <a class="dropdown-item" href="{% url 'user_auth:profile' %}">Settings</a>
                         <a class="dropdown-item" href="{% url 'user_auth:logout' %}">Logout</a>
