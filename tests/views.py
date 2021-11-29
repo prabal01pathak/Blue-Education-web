@@ -307,7 +307,8 @@ for i in range(0,10):
     """
 
 def home(requests):
-    titles = Title.objects.filter(is_live=True,hidden=False)
+    titles = Title.objects.filter(is_live=True,hidden=False).order_by('scheduled_time')
+    print(titles)
     now_time = timezone.now()
     for title in titles:
         end_time = title.end_time
