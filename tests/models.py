@@ -13,10 +13,22 @@ types = (('single', 'single'), ('write', 'write'),
          ('multiselect', 'multiselect'))
 
 answer_choice = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'))
-exam_choice = (('JEE Mains','JEE Mains'),('NEET','NEET'),('PAT','PAT'),('GATE','GATE'))
+exam_choice = (('JEE Mains','JEE Mains'),('NEET','NEET'),('PAT','PAT'),('GATE','GATE'),('Computer Science','Computer Science'),('Business','Business'))
 marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
 minus_marking_choice = (('0','0'),('1','1'),('2','2'),('3','3'),('4','4'))
-subjects_choices = (("Math","Math"),("Chemistry","Chemistry"),("Physics","Physics"),("Biology","Biology"),("Agriculture","Agriculture"))
+subjects_choices = (("Math","Math"),
+                    ("Chemistry","Chemistry"),
+                    ("Physics","Physics"),
+                    ("Account","Account"),
+                    ("DBMS","DBMS"),
+                    ("COA","COA"),
+                    ("DigitalElectronics","DigitalElectronics"),
+                    ("ComputerNetworks","ComputerNetworks"),
+                    ("DataScience","DataScience"),
+                    ("CyberSecurity","CyberSecurity"),
+                    ("OperatingSystem","OperatingSystem"),
+                    ("Biology","Biology"),
+                    ("Agriculture","Agriculture"))
 
 class Paper_Title(models.Model):
     Question_Paper_Title = models.CharField(max_length=200)
@@ -89,6 +101,24 @@ class Chemistry(Questions):
 class Physics(Questions):
     pass
 
+class Account(Questions):
+    pass
+class OperatingSystem(Questions):
+    pass
+class DBMS(Questions):
+    pass
+class DSA(Questions):
+    pass
+class DigitalElectronics(Questions):
+    pass
+class COA(Questions):
+    pass
+class ComputerNetworks(Questions):
+    pass
+class DataScience(Questions):
+    pass
+class CyberSecurity(Questions):
+    pass
 class Biology(Questions):
     pass
 class Agriculture(Questions):
@@ -102,6 +132,7 @@ class StudentData(models.Model):
     exam_data = models.TextField(default='None',blank=True)
     want_try_again = models.BooleanField(default=False)
     submitted_at = models.DateTimeField(default=0,blank=True)  
+    feedback = models.TextField(default="None",blank=True)
     
 
     def __str__(self):

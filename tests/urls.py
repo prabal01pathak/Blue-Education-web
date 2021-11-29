@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static 
-from .views import index,home,show_title,get_subject,add_questions,edit_question,show_assign_or_delete,edit_title,add_title,terms,filter_pages,contact_us
+from .views import index,home,show_title,get_subject,add_questions,edit_question,show_assign_or_delete,edit_title,add_title,terms,filter_pages,contact_us,feedback_save,message_send,careers,recomend
 
 app_name = 'jeetests'
 urlpatterns = [
@@ -17,6 +17,10 @@ urlpatterns = [
         path("terms" , terms,name="terms"),
         path("filter/<str:filter_type>/" , filter_pages,name="filter_type"),
         path("contact/" , contact_us,name="contact"),
+        path("feedback/" , feedback_save,name="feedback"),
+        path("send_message/" , message_send,name="send-message"),
+        path("careers/" , careers,name="careers"),
+        path("recomend/" , recomend,name="recomend"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

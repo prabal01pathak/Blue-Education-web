@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import tzlocal
 from .forms import AddTitleForm,AddQuestionForm
 
-subject_model_names = ['Math','Chemistry','Physics','Biology','Agriculture'] # list of all subjects in the database 
+subject_model_names = ['Math','Chemistry','Physics','Account','OperatingSystem','DBMS','DigitalElectronics','COA','ComputerNetworks','DataScience','CyberSecurity','Biology','Agriculture'] # list of all subjects in the database 
 # get time of database
 def get_time():
     import datetime
@@ -132,9 +132,30 @@ def calculate_rank(title,user):
     student = StudentData.objects.get(paper=title,user=user)
     return student.rank
 
+#submit student feedback on student id
+@login_required(login_url="user_auth:login")
+def feedback_save(request):
+    if request.method == "POST":
+        print(request.POST.keys())
+        title_id = request.POST['title_id']
+        #get user
+        user = User.objects.get(username=request.user)
+        #get title
+        title = Title.objects.get(id=int(title_id))
+        print(title)
+        #get student data
+        student = StudentData.objects.get(user=request.user, paper=title)
+        #save student data
+        student.feedback = request.POST['feedback']
+        student.save()
+        print('done')
+        #return response
+        return redirect(reverse("user_auth:dashboard"))
+    #return it if request is get
+    return redirect(reverse("user_auth:dashboard"))
+
+
 # exam page
-
-
 @login_required(login_url="user_auth:login")
 def index(request, title_id):
     time = timezone.now()
@@ -164,7 +185,7 @@ def index(request, title_id):
 
 
     #Append every new model subjects in subjects list.
-    subjects = ['Math', 'Physics', 'Chemistry', 'Biology', 'Agriculture']
+    subjects =subject_model_names
     total_subject = 0
     total_marks = 0
     total_questions = 0
@@ -683,5 +704,22 @@ def edit_question(request,question_id,model,title_id):
     return render(request,'tests/edit_question.html',context)
 
 
+
+# contact page 
 def contact_us(request):
     return render(request,'tests/contact_us.html',{})
+
+# contact page message to admin
+def message_send(request):
+    if request.method=="POST":
+        email  = request.POST['email']
+        message = request.POST['message']
+        return render(request,'tests/contact_us.html',{'post':True})
+    return HttpResponse("Don't do that ")
+
+# careers page 
+def careers(request):
+    return render(request,'tests/contact_us.html',{'careers':True})
+# recomendation page
+def recomend(request):
+    return render(request,'tests/contact_us.html',{'recomend':True})

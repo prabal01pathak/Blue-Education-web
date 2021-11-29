@@ -73,6 +73,9 @@
   {% endif %}
 
   {% if total_marks %}
+
+
+<!-- show result of test -->
   <div class="table-responsive">
     <table class='table table-dark caption-top align-middle'>
       <caption>ANALYSIS</caption>
@@ -105,6 +108,19 @@
       </tbody>
     </table>
   </div>
+
+<!-- end fo result section -->
+
+<!-- take student feedback -->
+  <div class="feedback form">
+	  <h3>Feedback: </h3>
+	  <form action="{% url 'jeetests:feedback' %}" method="post">{% csrf_token %}
+		  <textarea name="feedback" placeholder="Please submit Your Feedback"></textarea>
+		  <input type="text" name="title_id" value={{title.id}} hidden>
+		<input type="submit" value="submit" class="btn btn-primary">
+	  </form>
+  </div>
+<!-- end of feedback section -->
   {% endif %}
 
   <div class="up-arrow">
@@ -129,9 +145,11 @@
     </div>
     {% endfor %}
   </div>
+<!-- result of end section-->
 
 
 
+<!-- check and apply sechduled time -->
   <div class='Schedule-time' hidden>{{title.scheduled_time}}</div>
   {% if title.scheduled_time > nowTime and title.is_live %}
   <script>
@@ -144,6 +162,8 @@
     });
   </script>
   {% else %}
+<!-- end of checking time --> 
+
   <form id='form' action="" method="post"> {% csrf_token %}
     <!-- math section -->
     {% for subject,model in models_list.items %}

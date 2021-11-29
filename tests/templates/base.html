@@ -46,10 +46,10 @@
                         Explore
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Courses</a>
-                        <a class="dropdown-item" href="#">Test Series</a>
+			    <a class="dropdown-item" href="{% url 'courses:courses-list' %}">Courses</a>
+			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'all' %}">Test Series</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Contact Us</a>
+			<a class="dropdown-item" href="{% url 'jeetests:contact' %}">Contact Us</a>
                     </div>
                 </li>
 		{% comment %} Form to filter exam type {% endcomment %}
@@ -64,6 +64,9 @@
 			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'NEET' %}">Neet</a>
 			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'PAT' %}">PAT</a>
 			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'GATE' %}">GATE</a>
+			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'Computer Science' %}">Computer Science</a>
+			    <a class="dropdown-item" href="{% url 'jeetests:filter_type' 'Business' %}">Business</a>
+
 		    </div>
 		</li>
 		{% block put_links %}
@@ -108,7 +111,7 @@
                     <h5>Services</h5>
                     <ul class="list-unstyled">
 			    <li class='mb-2'><a href="{% url 'jeetests:filter_type' 'all' %}">Tests</a></li>
-                        <li class='mb-2'><a href="#">Courses</a></li>
+			    <li class='mb-2'><a href="{% url 'courses:courses-list' %}">Courses</a></li>
                         <li class='mb-2'><a href="{% url 'jeetests:home' %}">Home</a></li>
                     </ul>
                 </div>
@@ -116,8 +119,8 @@
                     <h5>About</h5>
                     <ul class="list-unstyled">
 			    <li class='mb-2'><a href="{% url 'jeetests:contact' %}">Contact Us</a></li>
-                        <li class='mb-2'><a href="#">Careers</a></li>
-                        <li class='mb-2'><a href="{% url 'jeetests:home' %}">Recomendations</a></li>
+			    <li class='mb-2'><a href="{% url 'jeetests:careers' %}">Careers</a></li>
+                        <li class='mb-2'><a href="{% url 'jeetests:recomend' %}">Recomendations</a></li>
                     </ul>
                 </div>
             </div>

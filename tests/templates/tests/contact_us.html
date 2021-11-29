@@ -1,5 +1,62 @@
 {% extends 'base.html' %}
-{% block title %} Contact Us {% endblock %}
+{% block title %}  {% if recomend %}
+			Recomendations
+		   {% elif careers %}
+		   	Careers
+		   {% else %}
+			Contact Us 
+		   {% endif %}
+{% endblock %}
+{% block style %} 
+	<style>
+		h4,p {
+		    display: inline;
+		    font-size: 1.3em;
+		    line-height: 2em;
+		    margin-bottom: 1em;
+		}
+		input {
+		    display: block ;
+		    margin-bottom: 1em;
+		    margin-left: 1em;
+		}
+		h1 {
+		    color: lightblue;
+		    text-align:center;
+		}
+	</style>
+{% endblock %}
 {% block content %}
-<h4>Comming Soon</h4>
+<!-- recomendation -->
+{% if recomend %}
+<h1>No Recomendations</h1>
+{% endif %}
+<!-- careers page -->
+{% if careers %}
+<h1>No Opportunity Available</h1>
+{% endif %}
+<!-- end careers -->
+
+<!-- if user send message -->
+{% if post %}
+<h3>Thanks for contacting us we will get back to you soon</h3>
+{% endif %}
+<!-- end message -->
+
+<!-- address -->
+<h4>Email Id:</h4>
+<p>BlueEdu@gmail.com</p><br>
+<h4>Mobile No:</h4>
+<p>+919770238490</p><br>
+<h4>ADDRESS:</h4>
+<p> Blue Edu,Rewa,Madhya Pradesh,India</p><br>
+<div class="send">
+	<h3>Contact Us:</h3>
+	<form action="{% url 'jeetests:send-message' %}" method="post">{% csrf_token %}
+		<input type="email" name="email" placeholder="Email">
+		<input type="text" name="message" placeholder="message">
+		<input type="submit" class="btn btn-primary" value="submit">
+	</form>
+</div>
+<!-- end address-->
 {% endblock %}
