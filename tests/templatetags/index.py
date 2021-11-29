@@ -25,3 +25,9 @@ def filter_subject(value, arg):
     print(value)
     print(arg)
     return value[arg]
+@register.filter(name="even")
+def even(value,arg):
+    arg = int(arg)
+    if arg%2 ==0:
+        return True
+    return False

@@ -334,8 +334,8 @@ def home(requests):
     if requests.method=="POST":
         form = FormFilter(requests.POST)
         filter_type = requests.POST['exam_type']
-        total_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=False)
-        live_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=True)
+        total_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=False).order_by('-scheduled_time')
+        live_title = Title.objects.filter(exam_type=filter_type,hidden=False,is_live=True).order_by('-scheduled_time')
         is_live_titles=False
         if len(live_title)>0:
             is_live_titles=True
@@ -716,11 +716,16 @@ def message_send(request):
         email  = request.POST['email']
         message = request.POST['message']
         return render(request,'tests/contact_us.html',{'post':True})
-    return HttpResponse("Don't do that ")
+    return redirect(reverse("jeetests:home"))
 
 # careers page 
 def careers(request):
     return render(request,'tests/contact_us.html',{'careers':True})
+
 # recomendation page
 def recomend(request):
+    return render(request,'tests/contact_us.html',{'recomend':True})
+
+# serach box handler
+def handle_search(request):
     return render(request,'tests/contact_us.html',{'recomend':True})

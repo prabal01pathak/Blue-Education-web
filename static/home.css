@@ -66,7 +66,6 @@ main {
 }
 .explore-card {
 	background-color: rgba(120,150,120,0.5);
-	color: black;
 }
 .explore-card {
 	height: 15rem;
@@ -104,7 +103,8 @@ main {
 .set-image2:hover .card-title,
 .set-image3:hover .card-title,
 .set-image4:hover .card-title,
-.set-image5:hover .card-title {
+.set-image5:hover .card-title,
+.set-image6:hover .card-title {
     background-color: black;
     border-radius: 10px;
     padding: 5px;
