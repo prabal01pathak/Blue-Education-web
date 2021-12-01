@@ -82,22 +82,22 @@ main {
     transition:all 0.5 ;
 }
 .set-image1 {
-    background-image:url("./image_jee.jpg");
+    background-image:url("./image_jee.6410337b0dff.jpg");
 }
 .set-image2 {
-    background-image:url("./image_neet.jpg");
+    background-image:url("./image_neet.551562b5ba4b.jpg");
 }
 .set-image3 {
-    background-image:url("./image_gate.jpg");
+    background-image:url("./image_gate.087734b0b79f.jpg");
 }
 .set-image4 {
-    background-image:url("./image_pat.jpg");
+    background-image:url("./image_pat.38db97f0cf29.jpg");
 }
 .set-image5 {
-    background-image:url("./image_bu.jpg");
+    background-image:url("./image_bu.1e841260361a.jpg");
 }
 .set-image6 {
-    background-image:url("./image_jee.jpg");
+    background-image:url("./image_jee.6410337b0dff.jpg");
 }
 .set-image1:hover .card-title,
 .set-image2:hover .card-title,
