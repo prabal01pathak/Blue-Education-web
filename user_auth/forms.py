@@ -73,3 +73,19 @@ class UserProfile(forms.Form):
     Email = forms.EmailField(max_length=254, required=True)
     gender = forms.ChoiceField(choices=gender,required=False)
     
+class PasswordResetForm(forms.Form):
+    OTP = forms.CharField(max_length=6,required=True)
+    new_password = forms.CharField(widget=forms.PasswordInput, required=True)
+    confirm_password = forms.CharField(widget=forms.PasswordInput, required=True)
+
+    def clean_new_password(self):
+        new_password = self.data['new_password']
+        if len(new_password) < 8:
+            raise forms.ValidationError("Password must be at least 8 characters long")
+        return new_password
+    def clean_confirm_password(self):
+        new_password = self.data['new_password']
+        confirm_password = self.data['confirm_password']
+        if new_password != confirm_password:
+            raise forms.ValidationError("Passwords do not match")
+        return confirm_password

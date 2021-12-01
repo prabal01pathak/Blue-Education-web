@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if message %}
+{{error}}
+{% endif %} 
+{% if otp %}
+Resend: OTP Send to your registerd mail id
+{% endif %}
+
+<form action="{% url 'user_auth:verify' %}" method="post">{% csrf_token %}
+	<label>Enter OTP:</label>
+	<input type="text" name="verify_otp" >
+	<input type="submit" class="btn btn-primary" value="submit">
+</form>
+<form action="{% url 'user_auth:resend_otp' 'verify' %}" method="get">
+	<input type="submit" class="btn btn-primary" value="Resend OTP">
+</form>
+{% endblock %}

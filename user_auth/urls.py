@@ -7,7 +7,11 @@ from .views import (
     profile,
     password_change,
     dashboard,
-    view_paper
+    view_paper,
+    verify_otp,
+    resend_otp,
+    reset_password,
+    change_password
 )
 
 app_name = "user_auth"
@@ -20,4 +24,8 @@ urlpatterns = [
     path("change_pass/",password_change,name="password_change"),
     path("dashboard/",dashboard,name="dashboard"),
     path("dashboard/paper/<int:title_id>/",view_paper,name="view-paper"),
+    path("verify/",verify_otp,name="verify"),
+    path("resend/<str:some>/",resend_otp,name="resend_otp"),
+    path("reset_pass/",reset_password,name="reset_pass"),
+    path("change_password/",change_password,name="change-pass"),
 ]
