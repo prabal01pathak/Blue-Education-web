@@ -130,6 +130,7 @@ def resend_otp(request,some):
                       'email':email,
                       'purpose':"registration",
                       })
+    request.session.set_expiry(180)
     print(request.path)
     if some=="change":
         form = PasswordResetForm()
@@ -204,6 +205,9 @@ def create_user(request):
                               'purpose':"registration",
                               })
 
+            # set expiry date of session in browser side
+            request.session.set_expiry(180)
+            print(request.session.get_expiry_date())
             print(code_generator)
             last_name = form.cleaned_data.get('last_name')
             user = User.objects.get(username=username)

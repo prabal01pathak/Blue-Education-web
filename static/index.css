@@ -115,6 +115,11 @@ h2 {
     justify-content: center;
 }
 
+#clock::before {
+	content:'❎';
+	margin-left: 10px;
+	cursor:pointer;
+}
 #clock {
     position: fixed;
     z-index: 6;
@@ -126,10 +131,12 @@ h2 {
     color: #000;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,33,67,0.527345972568715) 16%, rgba(180,180,208,1) 20%, rgba(89,88,120,1) 36%, rgba(81,56,89,1) 44%, rgba(186,34,99,1) 54%, rgba(103,106,137,1) 64%, rgba(183,81,27,1) 70%, rgba(77,133,167,1) 80%, rgba(77,192,58,0.16039919385723034) 92%, rgba(0,212,255,1) 100%);
-    margin-top: -5rem;
     border-radius: 10px;
     color: white;
     padding: 5px;
+}
+.transparent_clock {
+	opacity:0.3;
 }
 
 h2 {
