@@ -47,4 +47,8 @@
     Already have an account? 
     <a href="{% url 'user_auth:login' %}">Login</a>
 </div>
+<div class="login-link">
+    Forgot Password?
+    <a href="{% url 'user_auth:reset_pass' %}">Reset</a>
+</div>
 {% endblock %}

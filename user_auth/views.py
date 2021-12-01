@@ -8,7 +8,8 @@ from django.contrib.auth import (
 from django.contrib.auth.hashers import make_password,check_password 
 from django.contrib.auth.models import User
 from django.apps import apps
-from .forms import UserCreate,PasswordChangeForm,UserProfile
+from .forms import UserCreate,PasswordChangeForm,UserProfile,PasswordResetForm
+
 from django.shortcuts import render, redirect,reverse
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -18,6 +19,7 @@ import string
 from tests.models import StudentData,Title
 from tests.views import get_object
 import json
+from tests.extra_utils import send_simple_mail,code_generator
 
 @login_required(login_url="user_auth:login")
 def profile(request):
@@ -30,16 +32,109 @@ def profile(request):
     if request.method=="POST":
         form = UserProfile(request.POST)
         if form.is_valid():
-            user.first_name = form.cleaned_data.get('first_name')
+            first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             user.username = form.cleaned_data.get('username')
-            user.email = form.cleaned_data.get('Email')
+            email = form.cleaned_data.get('Email')
             user_data.mobile_number = form.cleaned_data.get('mobile_no')
             user_data.gender = form.cleaned_data.get("gender")
+            user.first_name=first_name
+            user.email = email
+
             user.save()
             user_data.save()
             return redirect(request.path)
     return render(request, 'registration/profile.html', {'form': form, 'user_data': user_data})
+
+#change Password
+def change_password(request):
+    #Reset password form
+    form = PasswordResetForm()
+    context = {
+            'form':form,
+            }
+    otp = request.session['otp']
+    username = request.session['username']
+    if request.method=="POST":
+        form = PasswordResetForm(request.POST)
+        user_otp = request.POST['OTP']
+        if user_otp == otp:
+            if form.is_valid():
+                raw_password = request.POST['new_password']
+                hash_password = make_password(raw_password)
+                print(hash_password)
+                user = User.objects.get(username=username)
+                user.set_password(raw_password)
+                user.save()
+                update_session_auth_hash(request, request.user)
+                return redirect(reverse("user_auth:login"))
+            context['form']=form
+            return render(request,'password_change.html',context)
+        context['message']="Please enter right otp"
+        return render(request,'password_change.html',context)
+    return render(request,'password_change.html',context)
+
+
+def verify_otp(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+    username = request.session['username']
+    otp = request.session['otp']
+    if request.method=="POST":
+        user_otp = request.POST['verify_otp']
+        print(user_otp)
+        print(otp)
+        if otp==user_otp:
+            user = User.objects.get(username=username)
+            user.is_active=True
+            user.save()
+            return redirect(reverse("user_auth:login"))
+        return render(request,'verify_otp.html',{'message':True,'error':'Please enter right OTP'})
+    return render(request,'verify_otp.html',{'message':False})
+
+# reset password view
+def reset_password(request):
+    if request.method=="POST":
+        # get username and serach for it 
+        username = request.POST['username']
+        try:
+            user = User.objects.get(username=username)
+            request.session['username']=username
+            request.session['email']=user.email
+            otp=code_generator()
+            request.session['otp']=otp
+            request.session['name']=user.first_name
+            request.session['purpose']="Reset Password"
+            send_simple_mail({'otp':otp,
+                              'name':user.first_name,
+                              'email':user.email,
+                              'purpose':"Reset Password",
+                          })
+            return redirect(reverse("user_auth:change-pass"))
+        except User.DoesNotExist:
+            #return if user not exist
+            return render(request,'reset_password.html',{"message":True,"error":"Please enter correct username"})
+    return render(request,'reset_password.html',{})
+
+def resend_otp(request,some):
+    if request.user.is_authenticated:
+        return redirect("/")
+    otp = code_generator()
+    request.session['otp']=otp
+    username=request.session['username']
+    user = User.objects.get(username=username)
+    email = user.email
+    first_name = user.first_name
+    send_simple_mail({'otp':otp,
+                      'name':first_name,
+                      'email':email,
+                      'purpose':"registration",
+                      })
+    print(request.path)
+    if some=="change":
+        form = PasswordResetForm()
+        return render(request,'password_change.html',{'form':form,'otp':True})
+    return render(request,'verify_otp.html',{'otp':True})
 
 @login_required(login_url="user_auth:login")
 def edit_profile(request):
@@ -51,6 +146,7 @@ def edit_profile(request):
         user_data.save()
         return redirect('/')
     return render(request, 'registration/edit_profile.html', {'user_data': user_data})
+
 @login_required(login_url="user_auth:login")
 def password_change(request):
     form  = PasswordChangeForm()
@@ -83,18 +179,36 @@ def create_user(request):
             last_name = form.cleaned_data.get('last_name')
             accept_terms = form.cleaned_data.get('accept_terms')
             password = make_password(raw_password)
+            #get user if exist 
             try: 
                 User.objects.get(email=email)
                 return render(request, 'registration/register.html', {'form': form, 'error': 'Email already exists'})
             except User.DoesNotExist:
                 User.objects.create(username=username,password=password, email=email, first_name=first_name, last_name=last_name)
                 user_status = User.objects.get(username=username)
-                user_status.active = False
+                user_status.is_active=False
                 user_status.save()
+
+            # generate otp
+            otp = code_generator()
+            #set otp,and requested path in request variable
+            print(dir(request))
+            request.session['otp']=otp
+            request.session['call_path']=request.path
+            request.session['username']=username
+            request.session['email']=email
+            request.session["purpose"]="registration"
+            send_simple_mail({'otp':otp,
+                              'name':first_name,
+                              'email':email,
+                              'purpose':"registration",
+                              })
+
+            print(code_generator)
             last_name = form.cleaned_data.get('last_name')
             user = User.objects.get(username=username)
             UserExtraData.objects.create(user=user, mobile_number=mobile_no, accept_terms=accept_terms)
-            return redirect(reverse("user_auth:login"))
+            return redirect(reverse("user_auth:verify"))
         return render(request, 'registration/register.html', {'form': form})
     return render(request, 'registration/register.html', {'form': form})
 
