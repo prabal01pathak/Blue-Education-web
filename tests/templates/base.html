@@ -28,7 +28,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="rgb(46, 47, 48);">
         <a class="navbar-brand" href="{% url 'jeetests:home' %}">
-        <img class="navbar-image" src="{% static 'logo5.png' %}" />
+        <img class="navbar-image" src="{% static 'logo5.png' %}" width="200" height="50"
+            class="d-inline-block align-top" alt="">
         </a> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,7 +147,6 @@
     <script src="{% static 'base.js' %}"></script>
     {% block script %} {% endblock %}
     {% endcomment %}
-    {% block script %}{% endblock %}
 </body>
 
 </html>
